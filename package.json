@@ -5,6 +5,7 @@
   "dependencies": {
     "parse": "^2.1.0",
     "react": "^16.5.2",
+    "react-date-picker": "^7.0.0",
     "react-dom": "^16.5.2",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",

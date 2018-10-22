@@ -1,6 +1,25 @@
 import { sessionReducer } from 'redux-react-session';
 import { combineReducers } from 'redux';
 
+const filter = (state = {belonging:"All", date:"from today", search_name:''}, action) => {
+    switch(action.type){
+        case 'CHANGE_FILTER':
+            return action.newFilter;
+        default:
+            return state;
+    }
+}
+
+const events = (state = [], action) => {
+    switch(action.type){
+        case 'ADD_EVENT':
+            return [...state, action.newEvent];
+        default:
+            return state;
+    }
+}
+
+
 const transactions = (state = [], action) => {
     switch(action.type){
         case 'ADD_TRANSACTION':
@@ -33,7 +52,14 @@ const selectUser = (state = [], action) => {
     }
 }
 
-const rootReducer = combineReducers({
-        session: sessionReducer
-    })
+const rootReducer = (state = [], action)=>{
+    return{
+        events: events(state, action),
+        filter: filter(state, action)            
+    }
+}
+    /*combineReducers({
+        events = event(state, action);
+        //session: sessionReducer
+    })*/
 export default rootReducer//connect({}, mapDispatchToProps)(rootReducer)

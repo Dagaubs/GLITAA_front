@@ -71,6 +71,7 @@ class App extends Component {
           <div className="header">
             <h2>We Are RAVE !</h2>
           </div>
+          <Home />
           <Route exact path='/' Component={Home}/>
         </div>
       </Router>
