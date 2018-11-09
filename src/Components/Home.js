@@ -7,7 +7,6 @@ class Home extends Component {
         console.log("home render");
         return (
             <div className="home">
-                <Filtering_Bar />
                 <Display_Events />
             </div>
         )

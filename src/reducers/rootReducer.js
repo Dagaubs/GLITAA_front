@@ -1,7 +1,14 @@
-import { sessionReducer } from 'redux-react-session';
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
+import events from "./EventsReducer";
+import filter from "./FilterReducer";
 
-const filter = (state = {belonging:"All", date:"from today", search_name:''}, action) => {
+export default combineReducers({
+  events,
+  filter
+});
+
+
+const old_filter = (state = {belonging:"All", date:"from today", search_name:'', location:"All"}, action) => {
     switch(action.type){
         case 'CHANGE_FILTER':
             return action.newFilter;
@@ -10,10 +17,20 @@ const filter = (state = {belonging:"All", date:"from today", search_name:''}, ac
     }
 }
 
-const events = (state = [], action) => {
+const old_events = (state = [], action) => {
     switch(action.type){
         case 'ADD_EVENT':
             return [...state, action.newEvent];
+        default:
+            return state;
+    }
+}
+
+
+const locations = (state = [], action) => {
+    switch(action.type){
+        case 'ADD_LOCATION':
+            return [...state, action.newLocation]
         default:
             return state;
     }
@@ -52,14 +69,15 @@ const selectUser = (state = [], action) => {
     }
 }
 
-const rootReducer = (state = [], action)=>{
+const OLD_rootReducer = (state = [], action)=>{
     return{
-        events: events(state, action),
-        filter: filter(state, action)            
+        events: old_events(state, action),
+        filter: old_filter(state, action),
+        locations: locations(state, action)       
     }
 }
     /*combineReducers({
         events = event(state, action);
         //session: sessionReducer
     })*/
-export default rootReducer//connect({}, mapDispatchToProps)(rootReducer)
+//export default rootReducer//connect({}, mapDispatchToProps)(rootReducer)

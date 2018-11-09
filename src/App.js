@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Home from './Components/Home';
 import { connect } from 'react-redux';
 import Parse from './Parse';
+import Header from './Components/Header';
 
 //const users = ["Charles", "JB", "Damien", "Mathieu", "Jeremy", "Quentin"];
 //const transactions = [{buyer: 'Charles', purchase:'Beer', amount:"15"}, {buyer: 'JB', purchase:'Birthday Cake', amount:"100"}, {buyer: 'Damien', purchase:'Game Boy', amount:"40"}, {buyer: 'Mahtieu', purchase:'Seed', amount:"40"}];
@@ -68,9 +69,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <div className="header">
-            <h2>We Are RAVE !</h2>
-          </div>
+          <Header />
           <Home />
           <Route exact path='/' Component={Home}/>
         </div>

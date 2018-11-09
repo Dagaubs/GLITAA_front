@@ -167,40 +167,29 @@ tr>td:last-child{
   color: darkgrey;
 }
 
-/*.createTransactionButton:hover{
-  animation-name: color_tilt;
-	animation-duration: 0.5s;
-  animation-iteration-count: 1;
-  animation-play-state: running;
-	animation-direction: alternate;
+/************* FILTER ***************/
+
+.filtering_bar>*{
+  display: inline-block;
+  max-width: 33%;
+  min-width: 20%;
 }
 
-.createTransactionButton{
-  animation-play-state: running;
+.filtering_bar .parentdiv_select{
+  padding: 2px;
 }
 
-@-webkit-keyframes color_tilt {
-	0% { background-color: default; }
-	50% { background-color: red; }
-	100% { background-color: default; }
+.filtering_bar .parentdiv_select>*{
+  display: block;
+  max-height: 45%;
+  margin: 0;
+  width: max-content;
 }
-@-moz-keyframes color_tilt {
-	0% { background-color: default; }
-	50% { background-color: red; }
-	100% { background-color: default; }
+
+.filtering_bar .belonging_select{
+  margin-bottom: 2%;
 }
-@-ms-keyframes color_tilt {
-	0% { background-color: default; }
-	50% { background-color: red; }
-	100% { background-color: default; }
+
+.filtering_bar .search_name{
+  width: fit-content;
 }
-@-o-keyframes color_tilt {
-	0% { background-color: default; }
-	50% { background-color: red; }
-	100% { background-color: default; }
-}
-@keyframes color_tilt {
-	0% { background-color: default; }
-	50% { background-color: red; }
-	100% { background-color: default; }
-}*/

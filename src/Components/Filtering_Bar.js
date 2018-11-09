@@ -18,21 +18,29 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => ({
     belonging: state.filter.belonging,
     date: state.filter.date,
-    search_name: state.filter.search_name   
+    search_name: state.filter.search_name,
+    location_select: state.filter.location,
+    //locations: state.locations.locations
 })
+
 class Filtering_Bar extends Component {
-    constructor(props){
-        super(props);
-    }
 
     render(){
         return(
             <div className="filtering_bar">
-                <select className="belonging_select" value={this.props.belonging} onChange={evt => this.changebelongingSelect(evt)}>
-                    <option className="All_opt" selected value="All">All</option>
-                    <option className="participate">Participate</option>
-                    <option className="not_participate">Don't participate</option>
-                </select>
+                <div className="parentdiv_select">
+                    <select className="belonging_select" value={this.props.belonging} onChange={evt => this.changebelongingSelect(evt)}>
+                        <option className="all_opt" selected value="All">All</option>
+                        <option className="followed">Only followed</option>
+                        <option className="not_followed">Not followed</option>
+                    </select>
+                    <select className="location_select" value={this.props.location_select} onChange={evt => this.changeLocationSelect(evt)}>
+                        <option className="all_opt" selected value="All">All</option>
+                        {this.props.locations.map(l => (
+                            <option className= {l.type} value={l.value}>{l.value}</option>
+                        ))}
+                    </select>
+                </div>
                 <DatePicker OnChange={this.changeDate} value={this.props.date}/>
                 <input className="search_name" type="text/PLAIN" value={this.props.search_name} placeholder="Search events by name" onChange={evt => this.changeSearchName(evt)}/>
             </div>
@@ -40,16 +48,20 @@ class Filtering_Bar extends Component {
     }
 
     changebelongingSelect = (evt) =>{
-        this.props.changeFilter(evt.target.value, this.props.date, this.props.name);
+        this.props.changeFilter(evt.target.value, this.props.date, this.props.name, this.props.location_select);
+    }
+
+    changeLocationSelect = (evt) =>{
+        this.props.changeFilter(this.props.belonging, this.props.date, this.props.name, evt.target.value);
     }
 
     changeSearchName = (evt) =>{
-        this.props.changeFilter(this.props.belonging, this.props.date, evt.target.value);
+        this.props.changeFilter(this.props.belonging, this.props.date, evt.target.value, this.props.location_select);
     }
 
     changeDate = (date) =>{
         console.log("changement date :", date);
-        this.props.changeFilter(this.props.belonging, date, this.props.name);
+        this.props.changeFilter(this.props.belonging, date, this.props.name, this.props.location_select);
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Filtering_Bar)
