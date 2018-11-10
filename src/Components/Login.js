@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Connection extends Component {
+class Login extends Component {
     render(){
         return (
             <div>HAHA</div>
