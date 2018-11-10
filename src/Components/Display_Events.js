@@ -33,14 +33,13 @@ class Display_Events extends Component {
         if (loading) {
             return <div>Loading...</div>;
         }
-        console.log("before filtering : ", this.props.events, this.props.loading);
+        console.log(loading?"WARNING => loading : " + loading : "");
         var eventsfiltered = this.modifyEventsListAlongFilter();
         console.log("filtered events:", eventsfiltered);
-        console.log("filter :", this.props.filter);
         return(
             <div className="Display_Events">
                 {eventsfiltered.map(e => (
-                    <Event title={e.title} dateBegin={e.dateBegin} dateEnd={e.dateEnd} musicStyle={e.musicStyle}/>    
+                    <Event key={e.id} title={e.title} dateBegin={e.dateBegin} dateEnd={e.dateEnd} musicStyle={e.musicStyle}/>    
                 ))}
             </div>
         )

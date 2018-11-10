@@ -1,0 +1,1 @@
+{"ast":null,"code":"'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nvar USER_SESSION = exports.USER_SESSION = 'USER-SESSION';\nvar USER_DATA = exports.USER_DATA = 'USER_DATA';","map":null,"metadata":{},"sourceType":"script"}

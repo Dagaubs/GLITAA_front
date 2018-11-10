@@ -1,9 +1,9 @@
 // This component handles the App template used on every page.
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Home from './Home';
+import AddEvent from './AddEvent';
 import Connection from './Connection';
 import PrivateRoute from './PrivateRoute';
 import Header from './Header';
@@ -25,13 +25,10 @@ export default class App extends Component{
     //console.log("Rendering");
     console.log("Session :",this.props.session);
     return (
-      <Router>
-        <div className="App">
-          <Header />
-          <Home />
-          <Route exact path='/' Component={Home}/>
-        </div>
-      </Router>
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route path='/addEvent' component={AddEvent} />
+      </Switch>
     );
   }
 }

@@ -23,8 +23,9 @@ export function fetchEvents() {
       dispatch(fetchEventsBegin());
       return getEvents()
         .then(json => {
-          dispatch(fetchEventsSuccess(json.Events));
-          return json.Events;
+          console.log("success!",json);
+          dispatch(fetchEventsSuccess(json));
+          return json;
         })
         .catch(error =>
           dispatch(fetchEventsFailure(error))
@@ -48,9 +49,9 @@ export function fetchEvents() {
     type: FETCH_EVENTS_BEGIN
   });
   
-  export const fetchEventsSuccess = Events => ({
+  export const fetchEventsSuccess = events => ({
     type: FETCH_EVENTS_SUCCESS,
-    payload: { Events }
+    payload: { events }
   });
   
   export const fetchEventsFailure = error => ({

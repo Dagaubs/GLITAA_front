@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'Hooked Up One Oh One';
+    src: url('HookedUpOneOhOne-Regular.eot');
+    src: url('HookedUpOneOhOne-Regular.eot?#iefix') format('embedded-opentype'),
+        url('HookedUpOneOhOne-Regular.woff2') format('woff2'),
+        url('HookedUpOneOhOne-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+

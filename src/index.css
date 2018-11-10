@@ -1,5 +1,72 @@
-body {
+@font-face {
+  font-family: 'Hooked Up';
+  src: url('./fonts/hooked-up-101/HookedUpOneOhOne-Regular.eot');
+  src: url('./fonts/hooked-up-101/HookedUpOneOhOne-Regular.eot?#iefix') format('embedded-opentype'),
+      url('./fonts/hooked-up-101/HookedUpOneOhOne-Regular.woff2') format('woff2'),
+      url('./fonts/hooked-up-101/HookedUpOneOhOne-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
   font-family: sans-serif;
+}
+
+.home{
+  position: relative;
+}
+
+body>*, body>*>*{
+  height: 100%;
+}
+
+.header{
+  background-image : url('./images/rave_bg.jpg');
+  padding: 15px 0px 15px 0px;
+  background-size: cover;
+}
+
+.header>h2{
+  margin: 0;
+  text-align: center;
+  font-size: 3em;
+  font-family: 'Hooked Up';
+  color: lightyellow;
+}
+
+.addEvent{
+  position: absolute;
+  bottom: 2.5%;
+  right: 2.5%;
+  font-size: 1em;
+}
+
+.addEvent_button:hover+.addEvent_text, .addEvent:hover>.addEvent_text{
+  display: inline-block;
+  width: auto;
+}
+
+.addEvent p{
+  margin: 0;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.addEvent_text{
+  width: 0;
+  display: none;
+  float: right;
+  transition: width 2s;
+  background-color: hsl(246, 72%, 39%);
+  color: lightyellow;
+}
+
+.addEvent_button{
+  border-radius: 30px;
+  border: solid 1px darkblue;
+  background-color:  hsl(246, 83%, 30%);
+  font-size: 2.3em;
 }
