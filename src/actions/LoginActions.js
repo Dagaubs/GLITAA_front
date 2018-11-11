@@ -27,7 +27,6 @@ function loginUser(username, password) {
         body: formBody
     })
       .then(handleErrors)
-      .then(res => res.json());
   }
   
 
@@ -40,9 +39,10 @@ export function login(username, password) {
           dispatch(loginSuccess(json));
           return json;
         })
-        .catch(error =>
-          dispatch(loginFailure(error))
-        );
+        .catch(error =>{
+          console.log("Error while trying to connect !", error);
+          dispatch(loginFailure(error));
+        });
     };
   }
   

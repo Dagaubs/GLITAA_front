@@ -37,6 +37,7 @@ class Login extends Component {
     }
 
     render(){
+        console.log("Login is rendered ");
         const { error, loading, success, user } = this.props;
         var errorMessage = '';
         var errorClass = error ? 'display_error' : 'no_error';
@@ -56,6 +57,7 @@ class Login extends Component {
         }
 
         if(success){
+            console.log("Success");
             this.props.getUser(this.state.username);
         }
         return (
