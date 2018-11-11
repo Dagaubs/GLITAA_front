@@ -1,5 +1,5 @@
 var content = '/user/'
-function getUser(username) {
+function fetchUser(username) {
     console.log("let's get that user :", username);
     
     return fetch('/api/user/'+username)
@@ -10,8 +10,8 @@ function getUser(username) {
 
 export function getUser(username) {
     return dispatch => {
-      dispatch(getUserfetchEventsBegin());
-      return getUser(username)
+      dispatch(getUserBegin());
+      return fetchUser(username)
         .then(json => {
           console.log("success!",json);
           dispatch(getUserSuccess(json));

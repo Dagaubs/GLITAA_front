@@ -3,19 +3,30 @@ import { connect } from 'react-redux';
 import Header from './Header';
 import DatePicker from 'react-date-picker';
 import { fetchLocations } from "../actions/LocationActions";
+import { fetchMusicStyles } from "../actions/MusicStyleActions";
+import { addEvent } from "../actions/EventActions";
 
 const mapDispatchToProps = dispatch => {
     return{
         fetchLocations: ()=>{
             dispatch(fetchLocations());
+        },
+        fetchMusicStyles: ()=>{
+            dispatch(fetchMusicStyles());
+        },
+        addEvent: (event)=>{
+            dispatch(addEvent(event));
         }
     }
 }
 
 const mapStateToProps = state => ({
     locations: state.locations.items,
-    loading: state.locations.loading,
-    error: state.locations.error
+    loading_location: state.locations.loading,
+    error_location: state.locations.error,
+    musicstyles: state.musicstyles.items,
+    loading_musicstyles: state.musicstyles.loading,
+    error_musicstyles: state.musicstyles.error
   });
 
 class AddEvent extends Component {
@@ -31,6 +42,9 @@ class AddEvent extends Component {
     componentDidMount(){
         if(this.state.locations != []){
             this.props.fetchLocations();
+        }
+        if(this.state.musicstyles != []){
+            this.props.fetchMusicStyles();
         }
     }
 
@@ -59,10 +73,16 @@ class AddEvent extends Component {
                            <option><input type="checkbox" value={this.location.name} input={evt => this.updateLocationsInput(evt)} /></option> 
                         ))}
                     </select>
+
+                    <button className="createEvent_b" onClick={() => this.OnClickCreateEvent()}>Create a new Event !</button>
                 </div>
             </div>
             
         )
+    }
+
+    OnClickCreateEvent(){
+
     }
 
     updateLocationsInput(evt){

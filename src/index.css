@@ -70,3 +70,10 @@ body>*, body>*>*{
   background-color:  hsl(246, 83%, 30%);
   font-size: 2.3em;
 }
+
+.display_error, .display_loading{
+  display: block;
+}
+.no_error, .no_loading{
+  display: none;
+}

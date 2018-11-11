@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Home from './Home';
 import AddEvent from './AddEvent';
-import Connection from './Login';
-import PrivateRoute from './PrivateRoute';
-import Header from './Header';
+import Login from './Login';
 
 /*
 const App = ({ authenticated, checked }) => (
@@ -28,6 +26,7 @@ export default class App extends Component{
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/addEvent' component={AddEvent} />
+        <Route path='/login' component={Login} />
       </Switch>
     );
   }

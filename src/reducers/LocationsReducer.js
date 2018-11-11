@@ -2,7 +2,7 @@ import {
     FETCH_LOCATIONS_BEGIN,
     FETCH_LOCATIONS_SUCCESS,
     FETCH_LOCATIONS_FAILURE
-  } from "../actions/EventActions";
+  } from "../actions/LocationActions";
   
   const initialState = {
     items: [],

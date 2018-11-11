@@ -4,7 +4,6 @@ var proxy = require('http-proxy-middleware');
 
 var app = connect();
 module.exports = function(app) {
-    console.log("setupProxy");
   app.use(proxy('/api', { 
       target: 'http://localhost:8080/',
       secure: false,

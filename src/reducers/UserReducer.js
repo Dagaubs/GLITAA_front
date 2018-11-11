@@ -2,7 +2,7 @@ import {
     GET_USER_BEGIN,
     GET_USER_SUCCESS,
     GET_USER_FAILURE
-  } from "../actions/EventActions";
+  } from "../actions/UserActions";
   
   const initialState = {
     item: null,

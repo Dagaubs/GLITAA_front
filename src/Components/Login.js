@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { login } from '../actions/LoginActions';
 import { getUser } from '../actions/UserActions';
+import { Route, Switch } from 'react-router-dom';
+import Home from './Home';
 
 const mapDispatchToProps = dispatch => {
     return{
@@ -35,7 +37,7 @@ class Login extends Component {
     }
 
     render(){
-        const { error, loading, success } = this.props;
+        const { error, loading, success, user } = this.props;
         var errorMessage = '';
         var errorClass = error ? 'display_error' : 'no_error';
         var loadingClass = loading ? 'display_loading' : 'no_loading';
@@ -61,16 +63,17 @@ class Login extends Component {
                 <p className={errorClass}>{this.errorMessage}</p>
                 <input type='text' value={this.state.usernameInput} placeholder="Username" onChange={evt => this.updateUsernameInput(evt)}/>
                 <input type='password' value={this.state.passwordInput} placeholder="password" onChange={evt => this.updatePasswordInput(evt)}/>
-                <button className="login_button" onClick={this.loginButtonOnClick()}>
+                <button className="login_button" onClick={() => this.loginButtonOnClick()}>
                     Login
                 </button>
-                <p className={this.loadingClass}>Loading !</p>
+                <p className={loadingClass}>Loading !</p>
             </div>
         )
     }
 
     loginButtonOnClick(){
-        this.props.login(this.state.usernameInput, this.state.passwordInput);
+        if(!this.props.loading_login)
+            this.props.login(this.state.usernameInput, this.state.passwordInput);
     }
 
     updateUsernameInput(evt){

@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+const mapStateToProps = state => ({
+    authenticated: state.login.authenticated,
+    user: this.state.user.item
+  });
 
 class Header extends Component {
     render(){

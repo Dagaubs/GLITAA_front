@@ -1,16 +1,15 @@
-var content = '/login/'
+var content = '/login/';
 function loginUser(username, password) {
     console.log("let's login user");
-    return fetch('/api/login/', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            username: username,
-            password: password
-        })
+    let data = new FormData();
+    data.append('username', username);
+    data.append('password', password);
+    return fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      body: data
     })
       .then(handleErrors)
       .then(res => res.json());
