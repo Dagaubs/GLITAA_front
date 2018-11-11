@@ -30,7 +30,7 @@ export function addLocation(location) {
           return json;
       })
       .catch(error =>
-        dispatch(fetchEventsFailure(error))
+        dispatch(addLocationFailure(error))
       );
   };
 }
