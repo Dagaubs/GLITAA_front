@@ -1,39 +1,43 @@
 import {
-    GET_USER_BEGIN,
-    GET_USER_SUCCESS,
-    GET_USER_FAILURE
-  } from "../actions/EventActions";
+    FETCH_USER_BEGIN,
+    FETCH_USER_SUCCESS,
+    FETCH_USER_FAILURE
+  } from "../actions/LoginActions";
   
   const initialState = {
-    item: null,
+    success: false,
     loading: false,
-    error: null
+    error: null,
+    authenticated: false
   };
   
-  export default function eventReducer(
+  export default function loginReducer(
     state = initialState,
     action
   ) {
     switch (action.type) {
-      case GET_USER_BEGIN:
+      case FETCH_USER_BEGIN:
         // Mark the state as "loading" so we can show a spinner or something
         // Also, reset any errors. We're starting fresh.
         return {
           ...state,
+          success: false,
           loading: true,
-          error: null
+          error: null,
+          authenticated: false
         };
   
-      case GET_USER_SUCCESS:
+      case FETCH_USER_SUCCESS:
         // All done: set loading "false".
         // Also, replace the items with the ones from the server
         return {
-          ...state,
+          error: null,
           loading: false,
-          item: action.payload.user
+          success: true,
+          authenticated: true
         };
   
-      case GET_USER_FAILURE:
+      case FETCH_USER_FAILURE:
         // The request failed, but it did stop, so set loading to "false".
         // Save the error, and we can display it somewhere
         // Since it failed, we don't have items to display anymore, so set it empty.
@@ -43,7 +47,9 @@ import {
           ...state,
           loading: false,
           error: action.payload.error,
-          item: null
+          user: null,
+          authenticated: false,
+          success: false
         };
   
       default:

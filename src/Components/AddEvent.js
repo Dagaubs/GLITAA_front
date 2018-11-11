@@ -76,6 +76,7 @@ class AddEvent extends Component {
     }
 
     updateDateBegin(evt){
+        console.log("dateBegin update : ", evt);
         this.setState({
             dateBegin: evt.target.value
         });

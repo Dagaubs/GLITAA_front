@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Home from './Home';
 import AddEvent from './AddEvent';
-import Connection from './Connection';
+import Connection from './Login';
 import PrivateRoute from './PrivateRoute';
 import Header from './Header';
 

@@ -1,13 +1,3 @@
-import { url } from '../index.js';
-/*import Header from 'headers';
-
-var myHearder = new Header({
-  "Content-Type": "text/plain",
-  "Content-Length": content.length.toString(),
-  "X-Custom-Header": "ProcessThisImmediately",
-});
-*/
-
 var content = '/events/'
 function getEvents() {
     console.log("let's fetch events");

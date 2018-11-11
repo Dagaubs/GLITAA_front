@@ -2,11 +2,15 @@ import { combineReducers } from "redux";
 import events from "./EventsReducer";
 import filter from "./FilterReducer";
 import locations from './LocationsReducer';
+import login from './LoginReducer';
+import user from './UserReducer';
 
 export default combineReducers({
   events,
   filter,
-  locations
+  locations,
+  login,
+  user
 });
 
 
