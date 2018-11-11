@@ -1,15 +1,30 @@
 var content = '/login/';
 function loginUser(username, password) {
+
+    let details = {
+      'username': username,
+      'password': password
+    };
     console.log("let's login user");
-    let data = new FormData();
-    data.append('username', username);
-    data.append('password', password);
+    //let data = new FormData();
+    let formBody = [];
+    for (let property in details) {
+        let encodedKey = encodeURIComponent(property);
+        let encodedValue = encodeURIComponent(details[property]);
+        formBody.push(encodedKey + "=" + encodedValue);
+    }
+    formBody = formBody.join("&");
+
+    /*data.append('username', username);
+    data.append('password', password);*/
+    console.log("I'M FETCHING LOGIN !", formBody);
     return fetch('/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-      },
-      body: data
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer token',
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: formBody
     })
       .then(handleErrors)
       .then(res => res.json());
@@ -18,7 +33,7 @@ function loginUser(username, password) {
 
 export function login(username, password) {
     return dispatch => {
-      dispatch(loginBegin());
+      dispatch(loginBegin(username, password));
       return loginUser(username, password)
         .then(json => {
           console.log("success!",json);
@@ -43,8 +58,9 @@ export function login(username, password) {
   export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
   export const LOGIN_FAILURE = "LOGIN_FAILURE";
   
-  export const loginBegin = () => ({
-    type: LOGIN_BEGIN
+  export const loginBegin = (username, password) => ({
+    type: LOGIN_BEGIN,
+    payload: {"username": username, 'password': password}
   });
   
   export const loginSuccess = user => ({
