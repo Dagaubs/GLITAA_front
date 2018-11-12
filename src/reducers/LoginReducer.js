@@ -5,7 +5,7 @@ import {
   } from "../actions/LoginActions";
     
   const initialState = {
-    success: false,
+    username: '',
     loading: false,
     error: null,
     authenticated: false
@@ -21,10 +21,7 @@ import {
         // Also, reset any errors. We're starting fresh.
         return {
           ...state,
-          success: false,
           loading: true,
-          error: null,
-          authenticated: false
         };
   
       case LOGIN_SUCCESS:
@@ -33,7 +30,7 @@ import {
         return {
           error: null,
           loading: false,
-          success: true,
+          username: action.payload.username,
           authenticated: true
         };
   
@@ -47,9 +44,8 @@ import {
           ...state,
           loading: false,
           error: action.payload.error,
-          user: null,
+          username: '',
           authenticated: false,
-          success: false
         };
   
       default:

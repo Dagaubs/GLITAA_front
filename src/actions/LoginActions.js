@@ -5,8 +5,6 @@ function loginUser(username, password) {
       'username': username,
       'password': password
     };
-    console.log("let's login user");
-    //let data = new FormData();
     let formBody = [];
     for (let property in details) {
         let encodedKey = encodeURIComponent(property);
@@ -15,9 +13,6 @@ function loginUser(username, password) {
     }
     formBody = formBody.join("&");
 
-    /*data.append('username', username);
-    data.append('password', password);*/
-    console.log("I'M FETCHING LOGIN !", formBody);
     return fetch('/api/login', {
         method: 'POST',
         headers: {
@@ -36,7 +31,7 @@ export function login(username, password) {
       return loginUser(username, password)
         .then(json => {
           console.log("success!",json);
-          dispatch(loginSuccess(json));
+          dispatch(loginSuccess(username));
           return json;
         })
         .catch(error =>{
@@ -63,9 +58,9 @@ export function login(username, password) {
     payload: {"username": username, 'password': password}
   });
   
-  export const loginSuccess = user => ({
+  export const loginSuccess = username => ({
     type: LOGIN_SUCCESS,
-    payload: "success"
+    payload: { username }
   });
   
   export const loginFailure = error => ({

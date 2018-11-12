@@ -17,12 +17,12 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => ({
-    success: state.login.items,
+    username: state.login.username,
     authenticated: state.login.authenticated,
     loading_login: state.login.loading,
     error_login: state.login.error,
     loading_user: state.user.loading,
-    error_login: state.user.error,
+    error_user: state.user.error,
     user: state.user.item
   });
 
@@ -32,19 +32,20 @@ class Login extends Component {
 
         this.state = {
             usernameInput: '',
-            passwordInput: ''
+            passwordInput: '',
+            Get_User_begin: false
         }
     }
 
     render(){
-        console.log("Login is rendered ");
-        const { error, loading, success, user } = this.props;
+        console.log("Login is rendered ", this.props.authenticated);
+        const { error_login, loading_login, authenticated, user, error_user, loading_user } = this.props;
         var errorMessage = '';
-        var errorClass = error ? 'display_error' : 'no_error';
-        var loadingClass = loading ? 'display_loading' : 'no_loading';
-        if(error)
+        var errorClass = error_login ? 'display_error' : 'no_error';
+        var loadingClass = loading_login ? 'display_loading' : 'no_loading';
+        if(error_login)
         {
-            errorMessage = 'Error for login ! => ' + error;
+            errorMessage = 'Error for login ! => ' + error_login;
         }
 
         if(user){
@@ -56,9 +57,11 @@ class Login extends Component {
             )
         }
 
-        if(success){
-            console.log("Success");
-            this.props.getUser(this.state.username);
+        if(authenticated && !this.state.Get_User_begin){
+            this.setState({
+                Get_User_begin: true
+            });
+            this.props.getUser(this.props.username);
         }
         return (
             <div className="Login">
@@ -74,8 +77,9 @@ class Login extends Component {
     }
 
     loginButtonOnClick(){
-        if(!this.props.loading_login)
+        if(!this.props.loading_login){
             this.props.login(this.state.usernameInput, this.state.passwordInput);
+        }
     }
 
     updateUsernameInput(evt){

@@ -2,7 +2,7 @@ var content = '/user/'
 function fetchUser(username) {
     console.log("let's get that user :", username);
     
-    return fetch('/api/user/'+username)
+    return fetch('/api/user/username/'+username)
       .then(handleErrors)
       .then(res => res.json());
   }
