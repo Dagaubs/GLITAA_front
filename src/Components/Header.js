@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect , Link} from 'react-router-dom';
 
 const mapStateToProps = state => ({
     authenticated: state.login.authenticated,
@@ -18,7 +18,7 @@ class Header extends Component {
         return(
            <div className="header">
             <h2>We Are RAVE !</h2>
-            
+            <Link to='/logout'> Logout! </Link>
            </div> 
         )
     }

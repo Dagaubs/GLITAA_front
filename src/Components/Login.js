@@ -35,7 +35,7 @@ class Login extends Component {
     }
 
     componentDidMount(){
-        this.props.login("dagaubs", "pwdtropdure");
+        //this.props.login("dagaubs", "pwdtropdure");
     }
 
     render(){

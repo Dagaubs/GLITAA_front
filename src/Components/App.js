@@ -5,6 +5,7 @@ import Home from './Home';
 import AddEvent from './AddEvent';
 import Login from './Login';
 import Profile from './Profile';
+import Logout from './Logout';
 
 export default class App extends Component{
   render() {
@@ -14,6 +15,7 @@ export default class App extends Component{
         <Route path='/addEvent' component={AddEvent} />
         <Route path='/login' component={Login} />
         <Route path='/me' component={Profile} />
+        <Route path='/logout' component={Logout} />
       </Switch>
     );
   }
