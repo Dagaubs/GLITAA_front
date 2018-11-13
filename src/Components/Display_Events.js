@@ -39,7 +39,7 @@ class Display_Events extends Component {
         return(
             <div className="Display_Events">
                 {eventsfiltered.map(e => (
-                    <Event key={e.id} title={e.title} dateBegin={e.dateBegin} dateEnd={e.dateEnd} musicStyle={e.musicStyle}/>    
+                    <Event key={e.id} title={e.title} dateBegin={e.date_start} dateEnd={e.date_end} musicStyles={e.musicstyles} locations={e.locations} img={e.img}/>    
                 ))}
             </div>
         )

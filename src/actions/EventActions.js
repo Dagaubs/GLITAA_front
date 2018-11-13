@@ -1,4 +1,3 @@
-var content = '/events/'
 function getEvents() {
   return fetch('/api/events/')
     .then(handleErrors)
@@ -21,6 +20,7 @@ function fetchAddEvent(event) {
 export function addEvent(event) {
   return dispatch => {
     dispatch(addEventBegin());
+    console.log("EVENT :",event);
     return fetchAddEvent(event)
       .then(json =>{
           console.log("success!",json);

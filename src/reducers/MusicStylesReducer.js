@@ -30,7 +30,7 @@ import {
         return {
           ...state,
           loading: false,
-          items: action.payload.events
+          items: action.payload.musicstyles
         };
   
       case FETCH_MUSICSTYLES_FAILURE:

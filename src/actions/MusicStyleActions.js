@@ -1,4 +1,3 @@
-var content = '/events/'
 function getMusicStyles() {
     return fetch('/api/musics/')
       .then(handleErrors)

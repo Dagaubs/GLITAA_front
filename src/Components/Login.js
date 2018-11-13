@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { login } from '../actions/LoginActions';
-import { getUser } from '../actions/UserActions';
-import { Route, Switch } from 'react-router-dom';
-import Home from './Home';
+import { login, getUser } from '../actions/LoginActions';
+//import { getUser } from '../actions/UserActions';
+import { Redirect } from 'react-router-dom';
 
 const mapDispatchToProps = dispatch => {
     return{
@@ -17,13 +16,11 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => ({
-    username: state.login.username,
+    user: state.login.user,
     authenticated: state.login.authenticated,
     loading_login: state.login.loading,
     error_login: state.login.error,
-    loading_user: state.user.loading,
-    error_user: state.user.error,
-    user: state.user.item
+    username: state.login.username
   });
 
 class Login extends Component {
@@ -37,9 +34,12 @@ class Login extends Component {
         }
     }
 
+    componentDidMount(){
+        this.props.login("dagaubs", "pwdtropdure");
+    }
+
     render(){
-        console.log("Login is rendered ", this.props.authenticated);
-        const { error_login, loading_login, authenticated, user, error_user, loading_user } = this.props;
+        const { error_login, loading_login, authenticated, user, username } = this.props;
         var errorMessage = '';
         var errorClass = error_login ? 'display_error' : 'no_error';
         var loadingClass = loading_login ? 'display_loading' : 'no_loading';
@@ -47,22 +47,21 @@ class Login extends Component {
         {
             errorMessage = 'Error for login ! => ' + error_login;
         }
+        console.log("ALLÔ ?: ", authenticated, username, user);
+        if(authenticated && username && !user && !this.state.Get_User_begin){
+            this.setState({
+                Get_User_begin: true
+            })
+            this.props.getUser(username);
+        }
 
-        if(user){
+
+        if(authenticated && user) {
             return (
-                <Switch>
-                    <Route exact path='/' component={Home} />
-                    <Route path='/login' component={Home} />
-                </Switch>
+                <Redirect to='/'/>
             )
         }
 
-        if(authenticated && !this.state.Get_User_begin){
-            this.setState({
-                Get_User_begin: true
-            });
-            this.props.getUser(this.props.username);
-        }
         return (
             <div className="Login">
                 <p className={errorClass}>{this.errorMessage}</p>

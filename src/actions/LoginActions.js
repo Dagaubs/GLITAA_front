@@ -1,4 +1,3 @@
-var content = '/login/';
 function loginUser(username, password) {
 
     let details = {
@@ -23,16 +22,39 @@ function loginUser(username, password) {
     })
       .then(handleErrors)
   }
-  
+
+  function fetchUser(username) {
+    console.log("let's get that user :", username);
+    
+    return fetch('/api/user/username/'+username)
+      .then(handleErrors)
+      .then(res => res.json());
+  }
+
+export function getUser(username) {
+    console.log("GET USER : ", username);
+    return dispatch => {
+      console.log("Allo ?");
+      dispatch(getUserBegin());
+      return fetchUser(username)
+        .then(json => {
+          console.log("success!",json);
+          dispatch(getUserSuccess(json));
+          return json;
+        })
+        .catch(error =>
+          dispatch(getUserFailure(error))
+        );
+    };
+  }
 
 export function login(username, password) {
     return dispatch => {
       dispatch(loginBegin(username, password));
       return loginUser(username, password)
         .then(json => {
-          console.log("success!",json);
-          dispatch(loginSuccess(username));
-          return json;
+          console.log("success login : ",json);
+          return dispatch(loginSuccess(username));
         })
         .catch(error =>{
           console.log("Error while trying to connect !", error);
@@ -52,7 +74,23 @@ export function login(username, password) {
   export const LOGIN_BEGIN = "LOGIN_BEGIN";
   export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
   export const LOGIN_FAILURE = "LOGIN_FAILURE";
+  export const GET_USER_BEGIN = "GET_USER_BEGIN";
+  export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
+  export const GET_USER_FAILURE = "GET_USER_FAILURE";
   
+  export const getUserBegin = () => ({
+    type: GET_USER_BEGIN
+  });
+  
+  export const getUserSuccess = user => ({
+    type: GET_USER_SUCCESS,
+    payload: { user }
+  });
+  
+  export const getUserFailure = error => ({
+    type: GET_USER_FAILURE,
+    payload: { error }
+  });
   export const loginBegin = (username, password) => ({
     type: LOGIN_BEGIN,
     payload: {"username": username, 'password': password}

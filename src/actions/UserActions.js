@@ -1,4 +1,3 @@
-var content = '/user/'
 function fetchUser(username) {
     console.log("let's get that user :", username);
     

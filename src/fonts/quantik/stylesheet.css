@@ -1,0 +1,20 @@
+@font-face {
+    font-family: 'Quantik';
+    src: url('Quantik-Bold.eot');
+    src: url('Quantik-Bold.eot?#iefix') format('embedded-opentype'),
+        url('Quantik-Bold.woff2') format('woff2'),
+        url('Quantik-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Quantik';
+    src: url('Quantik-Regular.eot');
+    src: url('Quantik-Regular.eot?#iefix') format('embedded-opentype'),
+        url('Quantik-Regular.woff2') format('woff2'),
+        url('Quantik-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+

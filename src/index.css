@@ -8,6 +8,26 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Quantik';
+  src: url('./fonts/quantik/Quantik-Bold.eot');
+  src: url('./fonts/quantik/Quantik-Bold.eot?#iefix') format('embedded-opentype'),
+      url('./fonts/quantik/Quantik-Bold.woff2') format('woff2'),
+      url('./fonts/quantik/Quantik-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Quantik';
+  src: url('./fonts/quantik/Quantik-Regular.eot');
+  src: url('./fonts/quantik/Quantik-Regular.eot?#iefix') format('embedded-opentype'),
+      url('./fonts/quantik/Quantik-Regular.woff2') format('woff2'),
+      url('./fonts/quantik/Quantik-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -20,7 +40,7 @@ html, body {
 }
 
 body>*, body>*>*{
-  height: 100%;
+  min-height: 100%;
 }
 
 .header{
@@ -33,6 +53,7 @@ body>*, body>*>*{
   margin: 0;
   text-align: center;
   font-size: 3em;
+  letter-spacing: 1.5px;
   font-family: 'Hooked Up';
   color: lightyellow;
 }
@@ -76,4 +97,50 @@ body>*, body>*>*{
 }
 .no_error, .no_loading{
   display: none;
+}
+
+/****************************** AddEvent.js ***************************/
+
+.newEvent{
+  padding: 2.5%;
+  background-color: hsl(217, 48%, 18%);
+  -moz-box-shadow: inset 0px 0px 32px 2px rgba(3,13,28,1);
+  box-shadow: inset 0px 0px 32px 2px rgba(3,13,28,1);
+}
+
+.newEvent p, .newEvent input{
+  margin-top:0;
+  margin-bottom: 7.5px;
+  font-family: 'Quantik';
+}
+
+.newEvent ul, .newEvent li{
+  list-style-type: none;
+}
+
+.newEvent li{
+  background-color: lightgray;
+  padding:1px 2% 1px 2%;
+}
+
+.newEvent li.not-selected{
+  -webkit-box-shadow: inset 0px 0px 15px 2px rgb(65, 73, 77);
+  -moz-box-shadow: inset 0px 0px 15px 2px rgb(65, 73, 77);
+  box-shadow: inset 0px 0px 15px 2px rgb(65, 73, 77);
+}
+
+.newEvent li.selected{
+  -webkit-box-shadow: inset 0px 0px 15px 2px rgba(83,191,65,1);
+  -moz-box-shadow: inset 0px 0px 15px 2px rgba(83,191,65,1);
+  box-shadow: inset 0px 0px 15px 2px rgba(83,191,65,1);
+}
+
+/*.newEvent input{
+  margin: 0;
+}*/
+
+.newEvent li, .newEvent li>*{
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
 }

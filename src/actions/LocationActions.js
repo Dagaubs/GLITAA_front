@@ -1,4 +1,3 @@
-var content = '/locations/'
 function getLocations() {
     console.log("let's fetch Locations");
     //return fetch(url+"/Locations/", {method: 'text/plain', mode: 'cors'})
@@ -25,7 +24,7 @@ export function addLocation(location) {
     dispatch(addLocationBegin());
     return fetchAddLocation(location)
       .then(json =>{
-          console.log("success!",json);
+          console.log("success!", json);
           dispatch(addLocationSuccess(json));
           return json;
       })
@@ -40,8 +39,8 @@ export function fetchLocations() {
       dispatch(fetchLocationsBegin());
       return getLocations()
         .then(json => {
-          console.log("success!",json);
-          dispatch(fetchLocationsSuccess(json));
+          console.log("success!",json._embedded);
+          dispatch(fetchLocationsSuccess(json._embedded));
           return json;
         })
         .catch(error =>

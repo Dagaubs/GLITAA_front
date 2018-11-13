@@ -1,7 +1,10 @@
 import {
   FETCH_EVENTS_BEGIN,
   FETCH_EVENTS_SUCCESS,
-  FETCH_EVENTS_FAILURE
+  FETCH_EVENTS_FAILURE,
+  ADD_EVENT_BEGIN,
+  ADD_EVENT_SUCCESS,
+  ADD_EVENT_FAILURE
 } from "../actions/EventActions";
 
 const initialState = {
@@ -45,6 +48,27 @@ export default function eventReducer(
         error: action.payload.error,
         items: []
       };
+
+    case ADD_EVENT_BEGIN:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    
+    case ADD_EVENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        items: [...state.items, action.payload.event]
+      };
+
+    case ADD_EVENT_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error
+      }
 
     default:
       // ALWAYS have a default case in a reducer
