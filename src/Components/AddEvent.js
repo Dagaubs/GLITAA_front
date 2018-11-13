@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from './Header';
+import { Redirect } from 'react-router-dom';
 import MultipleSelect from './MultipleSelect';
 import DatePicker from 'react-date-picker';
+import AddLocation from './AddLocation';
+import AddMusicStyle from './AddMusicStyle';
 import { fetchLocations } from "../actions/LocationActions";
 import { fetchMusicStyles } from "../actions/MusicStyleActions";
 import { addEvent } from "../actions/EventActions";
@@ -27,6 +30,7 @@ const mapStateToProps = state => ({
     locations: state.locations.items,
     loading_location: state.locations.loading,
     error_location: state.locations.error,
+    add_event_success: state.events.addsuccess,
     musicstyles: state.musicstyles.items,
     loading_musicstyles: state.musicstyles.loading,
     error_musicstyles: state.musicstyles.error,
@@ -64,8 +68,12 @@ class AddEvent extends Component {
     }
 
     render(){
-        const { error_location, loading_location, error_musicstyles, loading_musicstyles } = this.props;
-    
+        const { error_location, loading_location, error_musicstyles, loading_musicstyles, add_event_success } = this.props;
+        if (add_event_success){
+            return (
+                <Redirect to='/' />
+            )
+        }
         if (error_location || error_musicstyles) {
             return <div>Error! {error_location ? error_location.message : ''} {error_musicstyles ? error_musicstyles.message : ''}</div>;
         }
@@ -86,7 +94,9 @@ class AddEvent extends Component {
                     <DatePicker onChange={(value) => this.updateDateBegin(value)} value={this.state.dateBegin}/>
                     <p>Ends : </p>
                     <DatePicker onChange={(value) => this.updateDateEnd(value)} value={this.state.dateEnd}/>
+                    <p className="add_p">Locations :</p><AddLocation />
                     <MultipleSelect content={this.props.locations} callbackUpdate={(values) => this.updateLocationsInput(values)} categorie="locations" />
+                    <p className="add_p">MusicStyles :</p><AddMusicStyle />
                     <MultipleSelect content={this.props.musicstyles} callbackUpdate={(values) => this.updateMusicStylesInput(values)} categorie="musicstyles" />
 
                     <button className="createEvent_b" onClick={() => this.OnClickCreateEvent()}>Create a new Event !</button>

@@ -23,6 +23,12 @@ function loginUser(username, password) {
       .then(handleErrors)
   }
 
+function logoutUser(){
+  return fetch('/api/logout')
+    .then(handleErrors)
+    .then(res => res);
+}
+
   function fetchUser(username) {
     console.log("let's get that user :", username);
     
@@ -30,6 +36,21 @@ function loginUser(username, password) {
       .then(handleErrors)
       .then(res => res.json());
   }
+
+export function logout(){
+  return dispatch => {
+    dispatch(logoutBegin());
+    return logoutUser()
+      .then(res =>{
+        console.log("successfuly logout!", res);
+        dispatch(logoutSuccess(res));
+        return res;
+      })
+      .catch(error =>
+        dispatch(logoutFailure(error))  
+      );
+  };
+}
 
 export function getUser(username) {
     console.log("GET USER : ", username);
@@ -77,6 +98,9 @@ export function login(username, password) {
   export const GET_USER_BEGIN = "GET_USER_BEGIN";
   export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
   export const GET_USER_FAILURE = "GET_USER_FAILURE";
+  export const LOGOUT_BEGIN = "LOGOUT_BEGIN";
+  export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
+  export const LOGOUT_FAILURE = "LOGOUT_FAILURE";
   
   export const getUserBegin = () => ({
     type: GET_USER_BEGIN
@@ -91,6 +115,7 @@ export function login(username, password) {
     type: GET_USER_FAILURE,
     payload: { error }
   });
+
   export const loginBegin = (username, password) => ({
     type: LOGIN_BEGIN,
     payload: {"username": username, 'password': password}
@@ -103,5 +128,20 @@ export function login(username, password) {
   
   export const loginFailure = error => ({
     type: LOGIN_FAILURE,
+    payload: { error }
+  });
+
+
+  export const logoutBegin = () => ({
+    type: LOGOUT_BEGIN,
+  });
+  
+  export const logoutSuccess = username => ({
+    type: LOGOUT_SUCCESS,
+    payload: { username }
+  });
+  
+  export const logoutFailure = error => ({
+    type: LOGOUT_FAILURE,
     payload: { error }
   });

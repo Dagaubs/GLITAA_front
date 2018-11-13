@@ -109,30 +109,44 @@ body>*, body>*>*{
 }
 
 .newEvent p, .newEvent input{
-  margin-top:0;
-  margin-bottom: 7.5px;
+  margin-top: 0.1em;
+  margin-bottom: 0.2em;
   font-family: 'Quantik';
+}
+
+.newEvent p{
+  color: rgb(88, 124, 88);
+}
+
+.react-date-picker{
+  margin-bottom: 1.5%;
 }
 
 .newEvent ul, .newEvent li{
   list-style-type: none;
+  padding-inline-start: 0;
 }
 
 .newEvent li{
   background-color: lightgray;
   padding:1px 2% 1px 2%;
+  margin-bottom: 0.1em;
+}
+
+.newEvent li p{
+  color: rgb(25, 45, 82);
 }
 
 .newEvent li.not-selected{
-  -webkit-box-shadow: inset 0px 0px 15px 2px rgb(65, 73, 77);
-  -moz-box-shadow: inset 0px 0px 15px 2px rgb(65, 73, 77);
-  box-shadow: inset 0px 0px 15px 2px rgb(65, 73, 77);
+  -webkit-box-shadow: inset 0px 0px 5px 1px rgb(65, 73, 77);
+  -moz-box-shadow: inset 0px 0px 5px 1px rgb(65, 73, 77);
+  box-shadow: inset 0px 0px 5px 1px rgb(65, 73, 77);
 }
 
 .newEvent li.selected{
-  -webkit-box-shadow: inset 0px 0px 15px 2px rgba(83,191,65,1);
-  -moz-box-shadow: inset 0px 0px 15px 2px rgba(83,191,65,1);
-  box-shadow: inset 0px 0px 15px 2px rgba(83,191,65,1);
+  -webkit-box-shadow: inset 0px 0px 5px 1px rgba(83,191,65,1);
+  -moz-box-shadow: inset 0px 0px 5px 1px rgba(83,191,65,1);
+  box-shadow: inset 0px 0px 5px 1px rgba(83,191,65,1);
 }
 
 /*.newEvent input{
@@ -143,4 +157,55 @@ body>*, body>*>*{
   display: inline-block;
   vertical-align: middle;
   margin: 0;
+}
+
+.add_comp, .add_comp>* {
+  display: inline-block;
+}
+
+.multiple_select{
+  margin-block-start: 0.4em;
+  margin-block-end: 0.35em;
+}
+
+.multiple_select li>*{
+  display: inline;
+  font-size: 0.75em;
+  vertical-align: center;
+}
+
+.multiple_select li>input{
+  margin-right: 4px;
+}
+
+.locations_ul>ul{
+  display: inline-block;
+  max-width: 31%;
+  min-width: 31%;
+  margin: 0px 2% 0px 2%;
+  vertical-align: top;
+}
+
+.locations_ul>.regions>p{
+  color: brown;
+}
+
+.locations_ul>.departement>p{
+  color: yellow;
+}
+
+.locations_ul>.departement>p{
+  color: yellowgreen;
+}
+
+.locations_ul>.regions>li{
+  background-color: brown;
+}
+
+.locations_ul .departement li{
+  background-color: yellow;
+}
+
+.locations_ul .villes li{
+  background-color: greenyellow;
 }

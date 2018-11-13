@@ -5,6 +5,7 @@ function getEvents() {
 }
 
 function fetchAddEvent(event) {
+  console.log("fetchAddEvent :", event);
   return fetch('/api/events/create',{
     method: 'POST',
     headers: {

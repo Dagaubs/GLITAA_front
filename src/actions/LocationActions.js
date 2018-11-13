@@ -1,31 +1,29 @@
 function getLocations() {
-    console.log("let's fetch Locations");
-    //return fetch(url+"/Locations/", {method: 'text/plain', mode: 'cors'})
-    return fetch('/api/locations/')
+  console.log("let's fetch Locations");
+  //return fetch(url+"/Locations/", {method: 'text/plain', mode: 'cors'})
+  return fetch('/api/locations/')
+    .then(handleErrors)
+    .then(res => res.json());
+}
+
+function fetchAddLocation(dtype, location_name) {
+  console.log("FetchAddLocation dtype : " + dtype + " | location : " + location_name);
+  return fetch('/api/locations/create/'+ location_name +'/'+ dtype,{
+    method: 'POST',
+    headers: {
+    'Accept': 'application/json'
+    }})
       .then(handleErrors)
       .then(res => res.json());
-  }
+}
 
-function fetchAddLocation(location) {
-    return fetch('/api/locations/'+location.dtype+'/create',{
-      method: 'POST',
-      headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: location
-    })
-        .then(handleErrors)
-        .then(res => res.json());
-  }
-
-export function addLocation(location) {
+export function addLocation(dtype, location_name) {
   return dispatch => {
     dispatch(addLocationBegin());
-    return fetchAddLocation(location)
+    return fetchAddLocation(dtype, location_name)
       .then(json =>{
           console.log("success!", json);
-          dispatch(addLocationSuccess(json));
+          dispatch(addLocationSuccess(json, dtype));
           return json;
       })
       .catch(error =>
@@ -82,9 +80,9 @@ export function fetchLocations() {
     type: ADD_LOCATION_BEGIN
   });
   
-  export const addLocationSuccess = location => ({
+  export const addLocationSuccess = (location, dtype) => ({
     type: ADD_LOCATION_SUCCESS,
-    payload: { location }
+    payload: { location , dtype }
   });
   
   export const addLocationFailure = error => ({

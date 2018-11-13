@@ -10,7 +10,8 @@ import {
 const initialState = {
   items: [],
   loading: false,
-  error: null
+  error: null,
+  addsuccess: false,
 };
 
 export default function eventReducer(
@@ -52,6 +53,7 @@ export default function eventReducer(
     case ADD_EVENT_BEGIN:
       return {
         ...state,
+        addsuccess: false,
         loading: true,
         error: null,
       };
@@ -59,6 +61,7 @@ export default function eventReducer(
     case ADD_EVENT_SUCCESS:
       return {
         ...state,
+        addsuccess: true,
         loading: false,
         items: [...state.items, action.payload.event]
       };

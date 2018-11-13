@@ -1,9 +1,38 @@
 function getMusicStyles() {
-    return fetch('/api/musics/')
+  return fetch('/api/musics/')
+    .then(handleErrors)
+    .then(res => res.json());
+}
+
+function fetchAddMusicStyle(musicstyle) {
+  console.log("fetchAddMusic :", musicstyle);
+  return fetch('/api/music/create',{
+    method: 'POST',
+    headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: musicstyle
+  })
       .then(handleErrors)
       .then(res => res.json());
-  }
-  
+}
+
+export function addMusicStyle(musicstyle) {
+  return dispatch => {
+    dispatch(addMusicStyleBegin());
+    console.log("Add musicStyle :",musicstyle);
+    return fetchAddMusicStyle(musicstyle)
+      .then(json =>{
+          console.log("success!",json);
+          dispatch(addMusicStyleSuccess(json));
+          return json;
+      })
+      .catch(error =>
+        dispatch(fetchMusicStylesFailure(error))
+      );
+  };
+}
 
 export function fetchMusicStyles() {
     return dispatch => {
@@ -31,6 +60,9 @@ export function fetchMusicStyles() {
   export const FETCH_MUSICSTYLES_BEGIN = "FETCH_MUSICSTYLES_BEGIN";
   export const FETCH_MUSICSTYLES_SUCCESS = "FETCH_MUSICSTYLES_SUCCESS";
   export const FETCH_MUSICSTYLES_FAILURE = "FETCH_MUSICSTYLES_FAILURE";
+  export const ADD_MUSICSTYLE_BEGIN = "ADD_MUSICSTYLE_BEGIN";
+  export const ADD_MUSICSTYLE_SUCCESS = "ADD_MUSICSTYLE_SUCCESS";
+  export const ADD_MUSICSTYLE_FAILURE = "ADD_MUSICSTYLE_FAILURE";
   
   export const fetchMusicStylesBegin = () => ({
     type: FETCH_MUSICSTYLES_BEGIN
@@ -43,5 +75,19 @@ export function fetchMusicStyles() {
   
   export const fetchMusicStylesFailure = error => ({
     type: FETCH_MUSICSTYLES_FAILURE,
+    payload: { error }
+  });
+
+  export const addMusicStyleBegin = () => ({
+    type: ADD_MUSICSTYLE_BEGIN
+  });
+  
+  export const addMusicStyleSuccess = newLocation => ({
+    type: ADD_MUSICSTYLE_SUCCESS,
+    payload: { newLocation }
+  });
+  
+  export const addMusicStyleFailure = error => ({
+    type: ADD_MUSICSTYLE_FAILURE,
     payload: { error }
   });

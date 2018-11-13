@@ -1,13 +1,17 @@
 import {
     FETCH_MUSICSTYLES_BEGIN,
     FETCH_MUSICSTYLES_SUCCESS,
-    FETCH_MUSICSTYLES_FAILURE
+    FETCH_MUSICSTYLES_FAILURE,
+    ADD_MUSICSTYLE_BEGIN,
+    ADD_MUSICSTYLE_SUCCESS,
+    ADD_MUSICSTYLE_FAILURE
   } from "../actions/MusicStyleActions";
   
   const initialState = {
     items: [],
     loading: false,
-    error: null
+    error: null,
+    addsuccess: false
   };
   
   export default function musicStyleReducer(
@@ -46,6 +50,28 @@ import {
           items: []
         };
   
+      case ADD_MUSICSTYLE_BEGIN:
+        return {
+          ...state,
+          addsuccess: false,
+          loading: true,
+          error: null,
+        };
+    
+      case ADD_MUSICSTYLE_SUCCESS:
+        return {
+          ...state,
+          addsuccess: true,
+          loading: false,
+          items: [...state.items, action.payload.newLocation]
+        };
+
+      case ADD_MUSICSTYLE_FAILURE:
+        return {
+          ...state,
+          loading: false,
+          error: action.payload.error
+        }
       default:
         // ALWAYS have a default case in a reducer
         return state;

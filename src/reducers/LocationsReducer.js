@@ -1,13 +1,17 @@
 import {
     FETCH_LOCATIONS_BEGIN,
     FETCH_LOCATIONS_SUCCESS,
-    FETCH_LOCATIONS_FAILURE
+    FETCH_LOCATIONS_FAILURE,
+    ADD_LOCATION_BEGIN,
+    ADD_LOCATION_SUCCESS,
+    ADD_LOCATION_FAILURE
   } from "../actions/LocationActions";
   
   const initialState = {
     items: [],
     loading: false,
-    error: null
+    error: null,
+    addsuccess: false
   };
   
   export default function locationReducer(
@@ -45,10 +49,66 @@ import {
           error: action.payload.error,
           items: []
         };
+
+      case ADD_LOCATION_BEGIN:
+        return{
+          ...state,
+          addsuccess: false,
+          loading: true,
+          error: null
+        };
+      
+      case ADD_LOCATION_SUCCESS:
+        return{
+          ...state,
+          addsuccess: true,
+          loading: false,
+          items: addToItems(state.items, action.payload.dtype, action.payload.location)
+        }
+      
+      case ADD_LOCATION_FAILURE:
+        return{
+          ...state,
+          loading: false,
+          error: action.payload.error
+        }
   
       default:
         // ALWAYS have a default case in a reducer
         return state;
     }
   }
+
+function addToItems(items, dtype, location){
+  //const location = '{\"name\": \"' + name + '\"}';
+  console.log("items before add :", items, location);
+  switch(dtype){
+    case 'region':
+      return {
+        "regions": [...items.regions, location],
+        "departements": items.departements,
+        "villes": items.villes
+      }
+
+    case 'departement':
+      return {
+        "regions": items.regions,
+        "departements": [...items.departements, location],
+        "villes": items.villes
+      }
+
+    case 'ville':
+      return {
+        "regions": items.regions,
+        "departements": items.departements,
+        "villes": [...items.villes, location]
+      }
+      
+    default:
+      console.error("Not a correct dtype : ", dtype);
+      break;
+  }
+  console.log("items after add :", items);
+  return items;
+}
   
