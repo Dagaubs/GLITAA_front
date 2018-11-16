@@ -85,7 +85,7 @@ class AddEvent extends Component {
         return (
             <div className="App">
                 <Header />
-                <div className="newEvent">
+                <div className="newEvent page_body">
                     <p>Event title</p>
                     <input type="text" value={this.state.title} placeholder="Event title" onChange={evt => this.updateInputTitle(evt)}/>
                     <p>Event URL</p>
@@ -95,9 +95,9 @@ class AddEvent extends Component {
                     <p>Ends : </p>
                     <DatePicker onChange={(value) => this.updateDateEnd(value)} value={this.state.dateEnd}/>
                     <p className="add_p">Locations :</p><AddLocation />
-                    <MultipleSelect content={this.props.locations} callbackUpdate={(values) => this.updateLocationsInput(values)} categorie="locations" />
+                    <MultipleSelect content={this.props.locations} selected={this.state.selectedLocations} callbackUpdate={(values) => this.updateLocationsInput(values)} categorie="locations" />
                     <p className="add_p">MusicStyles :</p><AddMusicStyle />
-                    <MultipleSelect content={this.props.musicstyles} callbackUpdate={(values) => this.updateMusicStylesInput(values)} categorie="musicstyles" />
+                    <MultipleSelect content={this.props.musicstyles} selected={this.state.selectedMusicStyles} callbackUpdate={(values) => this.updateMusicStylesInput(values)} categorie="musicstyles" />
 
                     <button className="createEvent_b" onClick={() => this.OnClickCreateEvent()}>Create a new Event !</button>
                 </div>
@@ -130,12 +130,14 @@ class AddEvent extends Component {
         this.setState({
             selectedMusicStyles: values
         });
+        console.log('musicstyles update : ', values);
     }
 
     updateLocationsInput = (values)=>{
         this.setState({
             selectedLocations: values
         });
+        console.log('locations update : ', values);
     }
 
     isSelected_MusicStyle(value){

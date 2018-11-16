@@ -10,15 +10,15 @@ const mapStateToProps = state => ({
 class Header extends Component {
     render(){
         const {authenticated, user } = this.props;
-
         if(!authenticated)
             return(
                 <Redirect to='/login' />
             )
         return(
            <div className="header">
-            <h2>We Are RAVE !</h2>
-            <Link to='/logout'> Logout! </Link>
+            <Link to='/' className="home"><h2>We Are RAVE !</h2></Link>
+            <Link to='/me' className="profile"><button>edit profile</button></Link>
+            <Link to='/logout' className="logout"><button> Logout! </button></Link>
            </div> 
         )
     }

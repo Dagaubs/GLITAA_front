@@ -6,6 +6,7 @@ import AddEvent from './AddEvent';
 import Login from './Login';
 import Profile from './Profile';
 import Logout from './Logout';
+import Subscribe from './Subscribe';
 
 export default class App extends Component{
   render() {
@@ -16,6 +17,7 @@ export default class App extends Component{
         <Route path='/login' component={Login} />
         <Route path='/me' component={Profile} />
         <Route path='/logout' component={Logout} />
+        <Route path='/subscribe' component={Subscribe} />
       </Switch>
     );
   }

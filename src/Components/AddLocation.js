@@ -22,6 +22,7 @@ class AddLocation extends Component{
         super(props);
         this.state = ({
             name_input: '',
+            input_placeholder: 'Name of location',
             type_select: 'null'
         });
     }
@@ -34,7 +35,7 @@ class AddLocation extends Component{
                     <option value="departement">Departement</option>
                     <option value="ville">Ville</option>
                 </select>
-                <input type="text" value={this.state.name_input} onChange={evt => this.updateInputName(evt)} />
+                <input type="text" value={this.state.name_input} onChange={evt => this.updateInputName(evt)} placeholder={this.state.input_placeholder}/>
                 <button onClick={() => this.onClickAction()}>Add Location</button> 
             </div>
         )
@@ -68,9 +69,10 @@ class AddLocation extends Component{
     }
 
     onClickAction(){
-        if(!this.state.type_select == 'null'){
+        if(this.state.type_select == 'null'){
             this.setState({
-                name_input:'<-- Select a type of location'
+                name_input: '',
+                input_placeholder:'<-- Select a type of location'
             });
             return;
         }
@@ -84,7 +86,8 @@ class AddLocation extends Component{
             })
         }else{
             this.setState({
-                name_input:'Name already exist !'
+                name_input: '',
+                input_placeholder:'Name already exist !'
             });
             return;
         }
@@ -92,7 +95,8 @@ class AddLocation extends Component{
 
     updateSelectType(evt){
         this.setState({
-            type_select: evt.target.value
+            type_select: evt.target.value,
+            input_placeholder: 'Name of ' + evt.target.value
         });
     }
 

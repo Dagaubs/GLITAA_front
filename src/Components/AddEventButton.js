@@ -4,16 +4,18 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 class AddEventButton extends Component {
     render(){
         return(
-            <div className="addEvent">
-                <p className="addEvent_text">Add an Event !</p>
-                <Link to="/addEvent"><p className="addEvent_button">+</p></Link>
-            </div>
-        )
+            <Link to='/addEvent'>
+                <div className="addEvent">
+                    <p className="addEvent_text">Add an Event !</p>
+                    <p className="addEvent_button">+</p>
+                </div>
+            </Link> 
+            )
     }
 }
 
 
-export class addEventButtonLink extends Component{
+export class addEventButtonLink extends Link{
     render(){
         return (
             <Route

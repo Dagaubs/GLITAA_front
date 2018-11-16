@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-export function musicstylesToJson(ms){
+export function musicstyleToJson(ms){
     return '{\"styleMusic_id\": '+ ms.styleMusic_id +', \"style\": \"' + ms.style + '\"}'
 }
 
-export function locationsToJsonWithDtype(location, dtype){
+export function locationToJsonWithDtype(location, dtype){
     return '{name: \"' + location.name +'\", \"dtype\": \"' + dtype + '\"}';
 }
 
-export function locationsToJson(location){
+export function locationToJson(location){
     return '{\"name\": \"' + location.name +'\"}';
 }
 
@@ -17,7 +17,7 @@ class MultipleSelect extends Component{
         super(props);
         this.myRef = React.createRef();
         this.state = {
-            selected: []
+            selected: props.selected
         }
     }
 
@@ -26,7 +26,7 @@ class MultipleSelect extends Component{
             return(
                 <ul className="musicstyles_ul multiple_select">
                     {this.props.content.map(ms =>(
-                        <li className={this.isSelected(musicstylesToJson(ms))} onClick={(evt) => this.updateInput(evt, this.isSelected(musicstylesToJson(ms)), musicstylesToJson(ms), 'li')}><input key={ms.styleMusic_id} id={ms.styleMusic_id} checked={this.isSelected(musicstylesToJson(ms)) == 'selected'} type="checkbox" onClick={evt => this.updateInput(evt, this.isSelected(musicstylesToJson(ms)), musicstylesToJson(ms),'input')} value={musicstylesToJson(ms)}/><p>{ms.style}</p></li>
+                        <li className={this.isSelected(musicstyleToJson(ms))} onClick={(evt) => this.updateInput(evt, this.isSelected(musicstyleToJson(ms)), musicstyleToJson(ms), 'li')}><input key={ms.styleMusic_id} id={ms.styleMusic_id} checked={this.isSelected(musicstyleToJson(ms)) == 'selected'} type="checkbox" onClick={evt => this.updateInput(evt, this.isSelected(musicstyleToJson(ms)), musicstyleToJson(ms),'input')} value={musicstyleToJson(ms)}/><p>{ms.style}</p></li>
                     ))}
                 </ul>
             );
@@ -37,21 +37,21 @@ class MultipleSelect extends Component{
                         {this.props.content.regions && 
                         <ul className="regions"><p>Regions</p>
                             {this.props.content.regions.map( region => (
-                                <li className={this.isSelected(locationsToJson(region))} onClick={(evt) => this.updateInput(evt, this.isSelected(locationsToJson(region)), locationsToJson(region), 'li')}><input key={region.id} id={region.id} checked={this.isSelected(locationsToJson(region)) == 'selected'} type="checkbox" onClick={evt => this.updateInput(evt, this.isSelected(locationsToJson(region)), locationsToJson(region),'input')} value={locationsToJson(region)}/><p>{region.name}</p></li>
+                                <li className={this.isSelected(locationToJson(region))} onClick={(evt) => this.updateInput(evt, this.isSelected(locationToJson(region)), locationToJson(region), 'li')}><input key={region.id} id={region.id} checked={this.isSelected(locationToJson(region)) == 'selected'} type="checkbox" onClick={evt => this.updateInput(evt, this.isSelected(locationToJson(region)), locationToJson(region),'input')} value={locationToJson(region)}/><p>{region.name}</p></li>
                             ))}
                         </ul>
                         }
                         {this.props.content.departements &&
                             <ul className="departements"><p>Departements</p>
                                 {this.props.content.departements.map( departement => (
-                                <li className={this.isSelected(locationsToJson(departement))} onClick={(evt) => this.updateInput(evt, this.isSelected(locationsToJson(departement)), locationsToJson(departement), 'li')}><input key={departement.id} id={departement.id} checked={this.isSelected(locationsToJson(departement)) == 'selected'} type="checkbox" onClick={evt => this.updateInput(evt, this.isSelected(locationsToJson(departement)), locationsToJson(departement),'input')} value={locationsToJson(departement)}/><p>{departement.name}</p></li>
+                                <li className={this.isSelected(locationToJson(departement))} onClick={(evt) => this.updateInput(evt, this.isSelected(locationToJson(departement)), locationToJson(departement), 'li')}><input key={departement.id} id={departement.id} checked={this.isSelected(locationToJson(departement)) == 'selected'} type="checkbox" onClick={evt => this.updateInput(evt, this.isSelected(locationToJson(departement)), locationToJson(departement),'input')} value={locationToJson(departement)}/><p>{departement.name}</p></li>
                                 ))}
                             </ul>
                         }
                         {this.props.content.villes &&
                             <ul className="villes"><p>Villes</p>
                                 {this.props.content.villes.map( ville => (
-                                <li className={this.isSelected(locationsToJson(ville))} onClick={(evt) => this.updateInput(evt, this.isSelected(locationsToJson(ville)), locationsToJson(ville), 'li')}><input key={ville.id} id={ville.id} checked={this.isSelected(locationsToJson(ville)) == 'selected'} type="checkbox" onClick={evt => this.updateInput(evt, this.isSelected(locationsToJson(ville)), locationsToJson(ville),'input')} value={locationsToJson(ville)}/><p>{ville.name}</p></li>
+                                <li className={this.isSelected(locationToJson(ville))} onClick={(evt) => this.updateInput(evt, this.isSelected(locationToJson(ville)), locationToJson(ville), 'li')}><input key={ville.id} id={ville.id} checked={this.isSelected(locationToJson(ville)) == 'selected'} type="checkbox" onClick={evt => this.updateInput(evt, this.isSelected(locationToJson(ville)), locationToJson(ville),'input')} value={locationToJson(ville)}/><p>{ville.name}</p></li>
                                 ))}
                             </ul>
                         }

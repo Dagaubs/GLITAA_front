@@ -1,27 +1,26 @@
 function loginUser(username, password) {
-
-    let details = {
-      'username': username,
-      'password': password
-    };
-    let formBody = [];
-    for (let property in details) {
-        let encodedKey = encodeURIComponent(property);
-        let encodedValue = encodeURIComponent(details[property]);
-        formBody.push(encodedKey + "=" + encodedValue);
-    }
-    formBody = formBody.join("&");
-
-    return fetch('/api/login', {
-        method: 'POST',
-        headers: {
-            'Authorization': 'Bearer token',
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: formBody
-    })
-      .then(handleErrors)
+  let details = {
+    'username': username,
+    'password': password
+  };
+  let formBody = [];
+  for (let property in details) {
+      let encodedKey = encodeURIComponent(property);
+      let encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
   }
+  formBody = formBody.join("&");
+
+  return fetch('/api/login', {
+      method: 'POST',
+      headers: {
+          'Authorization': 'Bearer token',
+          'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: formBody
+  })
+    .then(handleErrors)
+}
 
 function logoutUser(){
   return fetch('/api/logout')
@@ -29,13 +28,71 @@ function logoutUser(){
     .then(res => res);
 }
 
-  function fetchUser(username) {
-    console.log("let's get that user :", username);
-    
-    return fetch('/api/user/username/'+username)
+function fetchUser(username) {
+  console.log("let's get that user :", username);
+  
+  return fetch('/api/user/username/'+username)
+    .then(handleErrors)
+    .then(res => res.json());
+}
+
+function addUser(user){
+  return fetch('/api/user/create',{
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: user
+    })
       .then(handleErrors)
       .then(res => res.json());
-  }
+}
+
+function fetchUpdateUser(user){
+  return fetch('/api/user/update',{
+    method: 'PUT',
+    headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: user
+  })
+      .then(handleErrors)
+      .then(res => res.json());
+}
+
+export function updateUser(user) {
+  console.log("let's update this user : ", user);
+  return dispatch => {
+    dispatch(updateUserBegin());
+    return fetchUpdateUser(user)
+      .then(json => {
+        console.log("success!",json);
+        dispatch(updateUserSuccess(json));
+        return json;
+      })
+      .catch(error =>
+        dispatch(updateUserFailure(error))
+      );
+  };
+}
+
+
+export function subscribeUser(user){
+  return dispatch => {
+    dispatch(subscribeBegin());
+    return addUser(user)
+      .then(json => {
+        console.log("success subscribe : ",json);
+        return dispatch(subscribeSuccess(json.username, json.password));
+      })
+      .catch(error =>{
+        console.log("Error while trying to subscribe !", error);
+        dispatch(subscribeFailure(error));
+      });
+  };
+}
 
 export function logout(){
   return dispatch => {
@@ -101,6 +158,12 @@ export function login(username, password) {
   export const LOGOUT_BEGIN = "LOGOUT_BEGIN";
   export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
   export const LOGOUT_FAILURE = "LOGOUT_FAILURE";
+  export const SUBSCRIBE_BEGIN = "SUBSCRIBE_BEGIN";
+  export const SUBSCRIBE_SUCCESS = "SUBSCRIBE_SUCCESS";
+  export const SUBSCRIBE_FAILURE = "SUBSCRIBE_FAILURE";
+  export const UPDATE_USER_BEGIN = "UPDATE_USER_BEGIN";
+  export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
+  export const UPDATE_USER_FAILURE = "UPDATE_USER_FAILURE";
   
   export const getUserBegin = () => ({
     type: GET_USER_BEGIN
@@ -131,7 +194,6 @@ export function login(username, password) {
     payload: { error }
   });
 
-
   export const logoutBegin = () => ({
     type: LOGOUT_BEGIN,
   });
@@ -143,5 +205,33 @@ export function login(username, password) {
   
   export const logoutFailure = error => ({
     type: LOGOUT_FAILURE,
+    payload: { error }
+  });
+
+  export const subscribeBegin = () => ({
+    type: SUBSCRIBE_BEGIN,
+  });
+  
+  export const subscribeSuccess = (username, password) => ({
+    type: SUBSCRIBE_SUCCESS,
+    payload: { username, password }
+  });
+  
+  export const subscribeFailure = error => ({
+    type: SUBSCRIBE_FAILURE,
+    payload: { error }
+  });
+
+  export const updateUserBegin = () => ({
+    type: UPDATE_USER_BEGIN
+  });
+  
+  export const updateUserSuccess = user => ({
+    type: UPDATE_USER_SUCCESS,
+    payload: { user }
+  });
+  
+  export const updateUserFailure = error => ({
+    type: UPDATE_USER_FAILURE,
     payload: { error }
   });

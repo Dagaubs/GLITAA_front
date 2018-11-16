@@ -49,7 +49,7 @@ body>*, body>*>*{
   background-size: cover;
 }
 
-.header>h2{
+.header h2{
   margin: 0;
   text-align: center;
   font-size: 3em;
@@ -58,15 +58,36 @@ body>*, body>*>*{
   color: lightyellow;
 }
 
-.addEvent{
+.header h2:link, .header h2:visited{
+  color: lightyellow;
+}
+
+.logout{
   position: absolute;
+  right: 4px;
+  top: 5px;
+}
+
+.page_body{
+  padding: 2.5%;
+  background-color: hsl(217, 48%, 18%);
+  -moz-box-shadow: inset 0px 0px 32px 2px rgba(3,13,28,1);
+  box-shadow: inset 0px 0px 32px 2px rgba(3,13,28,1);
+}
+
+.addEvent{
+  z-index: 3;
+  position: fixed;
   bottom: 2.5%;
   right: 2.5%;
   font-size: 1em;
+  background-color: hsl(246, 72%, 39%);
+  border-radius: 10px;
 }
 
 .addEvent_button:hover+.addEvent_text, .addEvent:hover>.addEvent_text{
   display: inline-block;
+  margin-left: 6px;
   width: auto;
 }
 
@@ -74,15 +95,15 @@ body>*, body>*>*{
   margin: 0;
   margin-left: 2px;
   margin-right: 2px;
+  /*float: right;*/
 }
 
 .addEvent_text{
   width: 0;
   display: none;
-  float: right;
   transition: width 2s;
-  background-color: hsl(246, 72%, 39%);
   color: lightyellow;
+  vertical-align: super;
 }
 
 .addEvent_button{
@@ -90,6 +111,7 @@ body>*, body>*>*{
   border: solid 1px darkblue;
   background-color:  hsl(246, 83%, 30%);
   font-size: 2.3em;
+  display: inline-block;
 }
 
 .display_error, .display_loading{
@@ -100,14 +122,11 @@ body>*, body>*>*{
 }
 
 /****************************** AddEvent.js ***************************/
-
+/*
 .newEvent{
   padding: 2.5%;
-  background-color: hsl(217, 48%, 18%);
-  -moz-box-shadow: inset 0px 0px 32px 2px rgba(3,13,28,1);
-  box-shadow: inset 0px 0px 32px 2px rgba(3,13,28,1);
 }
-
+*/
 .newEvent p, .newEvent input{
   margin-top: 0.1em;
   margin-bottom: 0.2em;
@@ -122,28 +141,28 @@ body>*, body>*>*{
   margin-bottom: 1.5%;
 }
 
-.newEvent ul, .newEvent li{
+ul.multiple_select, .multiple_select ul, .multiple_select li{
   list-style-type: none;
   padding-inline-start: 0;
 }
 
-.newEvent li{
+.multiple_select li{
   background-color: lightgray;
   padding:1px 2% 1px 2%;
   margin-bottom: 0.1em;
 }
 
-.newEvent li p{
+.multiple_select li p{
   color: rgb(25, 45, 82);
 }
 
-.newEvent li.not-selected{
+.multiple_select li.not-selected{
   -webkit-box-shadow: inset 0px 0px 5px 1px rgb(65, 73, 77);
   -moz-box-shadow: inset 0px 0px 5px 1px rgb(65, 73, 77);
   box-shadow: inset 0px 0px 5px 1px rgb(65, 73, 77);
 }
 
-.newEvent li.selected{
+.multiple_select li.selected{
   -webkit-box-shadow: inset 0px 0px 5px 1px rgba(83,191,65,1);
   -moz-box-shadow: inset 0px 0px 5px 1px rgba(83,191,65,1);
   box-shadow: inset 0px 0px 5px 1px rgba(83,191,65,1);
@@ -153,7 +172,7 @@ body>*, body>*>*{
   margin: 0;
 }*/
 
-.newEvent li, .newEvent li>*{
+.multiple_select li, .multiple_select li>*{
   display: inline-block;
   vertical-align: middle;
   margin: 0;

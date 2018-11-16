@@ -5,7 +5,6 @@ function fetchUser(username) {
       .then(handleErrors)
       .then(res => res.json());
   }
-  
 
 export function getUser(username) {
     return dispatch => {

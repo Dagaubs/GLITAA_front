@@ -7,12 +7,19 @@ import {
     GET_USER_FAILURE,
     LOGOUT_BEGIN,
     LOGOUT_SUCCESS,
-    LOGOUT_FAILURE
+    LOGOUT_FAILURE,
+    SUBSCRIBE_BEGIN,
+    SUBSCRIBE_SUCCESS,
+    SUBSCRIBE_FAILURE,
+    UPDATE_USER_BEGIN,
+    UPDATE_USER_SUCCESS,
+    UPDATE_USER_FAILURE
   } from "../actions/LoginActions";
     
   const initialState = {
     user: null,
     username: null,
+    password: null,
     loading: false,
     error: null,
     authenticated: false
@@ -29,6 +36,7 @@ import {
         return {
           ...state,
           loading: true,
+          password: null
         };
   
       case LOGIN_SUCCESS:
@@ -119,7 +127,54 @@ import {
           username: '',
           authenticated: false,
         };
-  
+
+      case SUBSCRIBE_BEGIN:
+        return {
+          ...state,
+          loading: true,
+          error: null,
+        };
+      
+      case SUBSCRIBE_SUCCESS:
+        return{
+          ...state,
+          loading: false,
+          error: null,
+          username: action.payload.username,
+          password: action.payload.password
+        };
+
+      case SUBSCRIBE_FAILURE:
+        return{
+          ...state,
+          loading: false,
+          error: action.payload.error,
+          username: null,
+          password: null
+        }
+
+      case UPDATE_USER_BEGIN:
+        return{
+          ...state,
+          loading: true,
+          error: null
+        }
+      
+        case UPDATE_USER_SUCCESS:
+          return{
+            ...state,
+            loading: false,
+            error: null,
+            user: action.payload.user
+          }
+
+        case UPDATE_USER_FAILURE:
+          return{
+            ...state,
+            loading: false,
+            error: action.payload.error,
+          }
+
       default:
         // ALWAYS have a default case in a reducer
         return state;

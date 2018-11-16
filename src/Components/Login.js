@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { login, getUser } from '../actions/LoginActions';
 //import { getUser } from '../actions/UserActions';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 const mapDispatchToProps = dispatch => {
     return{
@@ -63,16 +63,27 @@ class Login extends Component {
         }
 
         return (
-            <div className="Login">
-                <p className={errorClass}>{this.errorMessage}</p>
-                <input type='text' value={this.state.usernameInput} placeholder="Username" onChange={evt => this.updateUsernameInput(evt)}/>
-                <input type='password' value={this.state.passwordInput} placeholder="password" onChange={evt => this.updatePasswordInput(evt)}/>
-                <button className="login_button" onClick={() => this.loginButtonOnClick()}>
-                    Login
-                </button>
-                <p className={loadingClass}>Loading !</p>
+            <div className="app">
+                <div className="header">
+                    <h2>We Are RAVE !</h2>
+                </div>
+                <div className="Login page_body">
+                    <p className={errorClass}>{this.errorMessage}</p>
+                    <input type='text' value={this.state.usernameInput} placeholder="Username" onChange={evt => this.updateUsernameInput(evt)}/>
+                    <input type='password' value={this.state.passwordInput} placeholder="password" onChange={evt => this.updatePasswordInput(evt)}/>
+                    <button className="login_button" onClick={() => this.loginButtonOnClick()}>
+                        Login
+                    </button>
+                    <Link to='/subscribe' ><button className="Subscribe_button" value="subscribe">Subscribe</button></Link>
+                    <button className="auto-login" onClick={() => this.autoLogin()}>Auto log</button>
+                    <p className={loadingClass}>Loading !</p>
+                </div>
             </div>
         )
+    }
+
+    autoLogin(){
+        this.props.login("dagaubs", "pwdtropdure");
     }
 
     loginButtonOnClick(){
