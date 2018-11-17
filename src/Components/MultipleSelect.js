@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 export function musicstyleToJson(ms){
-    return '{\"styleMusic_id\": '+ ms.styleMusic_id +', \"style\": \"' + ms.style + '\"}'
+    return '{"styleMusic_id": '+ ms.styleMusic_id +', "style": "' + ms.style + '"}'
 }
 
 export function locationToJsonWithDtype(location, dtype){
@@ -9,7 +9,67 @@ export function locationToJsonWithDtype(location, dtype){
 }
 
 export function locationToJson(location){
-    return '{\"name\": \"' + location.name +'\"}';
+    return '{"name": "' + location.name +'"}';
+}
+
+function selectedToJson(selected){
+    var ret = [];
+    selected.map(select =>(
+        ret.push(locationToJson(select))
+    ))
+    return ret;
+}
+
+function redefineLocations(locations){
+    var ret = [];
+    if(locations.length == 0) {
+        return [];
+    }
+    console.log("redefine locations!", locations);
+    if(locations.regions != undefined){
+        var new_regions = [];
+        locations.regions.map(region => {
+            const slash_index = region._links.region.href.lastIndexOf('/');
+            const id = parseInt(region._links.region.href.substring(slash_index+1));
+            const newregion = {
+                id: id,
+                name: region.name
+            }
+            //console.log(newregion);
+            new_regions.push(newregion);
+        });
+        ret.regions = new_regions;
+    }
+    if(locations.departements != undefined){
+        var new_departements = [];
+        locations.departements.map(departement => {
+            const slash_index = departement._links.departement.href.lastIndexOf('/');
+            const id = parseInt(departement._links.departement.href.substring(slash_index+1));
+            const newdepartement = {
+                id: id,
+                name: departement.name
+            }
+            //console.log(newdepartement);
+            new_departements.push(newdepartement);
+        });
+        ret.departements = new_departements;
+    }
+    if(locations.villes != undefined){
+        var new_villes = [];
+        locations.villes.map(ville => {
+            const slash_index = ville._links.ville.href.lastIndexOf('/');
+            const id = parseInt(ville._links.ville.href.substring(slash_index+1));
+            const newville = {
+                id: id,
+                name: ville.name
+            }
+            //console.log(newville);
+            new_villes.push(newville);
+        });
+        ret.villes = new_villes;
+    }
+    //console.log("real content ? :", ret);
+    return ret;
 }
 
 class MultipleSelect extends Component{
@@ -17,16 +77,25 @@ class MultipleSelect extends Component{
         super(props);
         this.myRef = React.createRef();
         this.state = {
-            selected: props.selected
+            selected: props.selected,
+            content: props.categorie == 'locations' ? redefineLocations(props.content) : props.content
         }
     }
 
+    /*componentDidUpdate(){
+        this.setState({
+            content: this.props.categorie == 'locations' ? redefineLocations(this.props.content) : this.props.content
+        })
+    }*/
+
     render(){
+        const {selected, content } = this.state;
+        console.log("selected & content :", selected, content);
         if(this.props.categorie == 'musicstyles'){
             return(
                 <ul className="musicstyles_ul multiple_select">
-                    {this.props.content.map(ms =>(
-                        <li className={this.isSelected(musicstyleToJson(ms))} onClick={(evt) => this.updateInput(evt, this.isSelected(musicstyleToJson(ms)), musicstyleToJson(ms), 'li')}><input key={ms.styleMusic_id} id={ms.styleMusic_id} checked={this.isSelected(musicstyleToJson(ms)) == 'selected'} type="checkbox" onClick={evt => this.updateInput(evt, this.isSelected(musicstyleToJson(ms)), musicstyleToJson(ms),'input')} value={musicstyleToJson(ms)}/><p>{ms.style}</p></li>
+                    {content.map(ms =>(
+                        <li key={ms.styleMusic_id} className={this.isSelected(ms)} onClick={(evt) => this.updateInput(evt, this.isSelected(ms), ms, 'li')}><input key={ms.styleMusic_id} id={ms.styleMusic_id} checked={this.isSelected(ms) == 'selected'} type="checkbox" onClick={evt => this.updateInput(evt, this.isSelected(ms), ms,'input')} value={ms}/><p>{ms.style}</p></li>
                     ))}
                 </ul>
             );
@@ -34,24 +103,24 @@ class MultipleSelect extends Component{
         else if (this.props.categorie == 'locations'){
             return(
                 <ul className="locations_ul multiple_select">
-                        {this.props.content.regions && 
+                        {content.regions && 
                         <ul className="regions"><p>Regions</p>
-                            {this.props.content.regions.map( region => (
-                                <li className={this.isSelected(locationToJson(region))} onClick={(evt) => this.updateInput(evt, this.isSelected(locationToJson(region)), locationToJson(region), 'li')}><input key={region.id} id={region.id} checked={this.isSelected(locationToJson(region)) == 'selected'} type="checkbox" onClick={evt => this.updateInput(evt, this.isSelected(locationToJson(region)), locationToJson(region),'input')} value={locationToJson(region)}/><p>{region.name}</p></li>
+                            {content.regions.map( region => (
+                                <li key={region.id} className={this.isSelected(region)} onClick={(evt) => this.updateInput(evt, this.isSelected(region), region, 'li')}><input key={region.id} id={region.id} checked={this.isSelected(region) == 'selected'} type="checkbox" onClick={evt => this.updateInput(evt, this.isSelected(region), region,'input')} value={region}/><p>{region.name}</p></li>
                             ))}
                         </ul>
                         }
-                        {this.props.content.departements &&
+                        {content.departements &&
                             <ul className="departements"><p>Departements</p>
-                                {this.props.content.departements.map( departement => (
-                                <li className={this.isSelected(locationToJson(departement))} onClick={(evt) => this.updateInput(evt, this.isSelected(locationToJson(departement)), locationToJson(departement), 'li')}><input key={departement.id} id={departement.id} checked={this.isSelected(locationToJson(departement)) == 'selected'} type="checkbox" onClick={evt => this.updateInput(evt, this.isSelected(locationToJson(departement)), locationToJson(departement),'input')} value={locationToJson(departement)}/><p>{departement.name}</p></li>
+                                {content.departements.map( departement => (
+                                <li key={departement.id} className={this.isSelected(departement)} onClick={(evt) => this.updateInput(evt, this.isSelected(departement), departement, 'li')}><input key={departement.id} id={departement.id} checked={this.isSelected(departement) == 'selected'} type="checkbox" onClick={evt => this.updateInput(evt, this.isSelected(departement), departement,'input')} value={departement}/><p>{departement.name}</p></li>
                                 ))}
                             </ul>
                         }
-                        {this.props.content.villes &&
+                        {content.villes &&
                             <ul className="villes"><p>Villes</p>
-                                {this.props.content.villes.map( ville => (
-                                <li className={this.isSelected(locationToJson(ville))} onClick={(evt) => this.updateInput(evt, this.isSelected(locationToJson(ville)), locationToJson(ville), 'li')}><input key={ville.id} id={ville.id} checked={this.isSelected(locationToJson(ville)) == 'selected'} type="checkbox" onClick={evt => this.updateInput(evt, this.isSelected(locationToJson(ville)), locationToJson(ville),'input')} value={locationToJson(ville)}/><p>{ville.name}</p></li>
+                                {content.villes.map( ville => (
+                                <li key={ville.id} className={this.isSelected(ville)} onClick={(evt) => this.updateInput(evt, this.isSelected(ville), ville, 'li')}><input key={ville.id} id={ville.id} checked={this.isSelected(ville) == 'selected'} type="checkbox" onClick={evt => this.updateInput(evt, this.isSelected(ville), ville,'input')} value={ville}/><p>{ville.name}</p></li>
                                 ))}
                             </ul>
                         }
@@ -74,7 +143,34 @@ class MultipleSelect extends Component{
     }
 
     isSelected(value){
-        return this.state.selected.indexOf(value) != -1 ? 'selected' : 'not-selected';
+        return this.indexValue(value) != -1 ? 'selected':'not-selected';
+        //console.log("isSelected : ",value, this.state.selected.indexOf(value));
+        //return this.state.selected.indexOf(value) != -1 ? 'selected' : 'not-selected';
+    }
+
+    indexValue(value){
+        var index = 0;
+        var ret = false;
+        this.state.selected.map(select => {
+            if (this.props.categorie == 'musicstyles'){
+                if(select.styleMusic_id == value.styleMusic_id){
+                    console.log("styleMusic_ids : ", select.styleMusic_id, value.styleMusic_id, select.styleMusic_id == value.styleMusic_id);
+                    ret = true;
+                }
+            }else{
+                if(select.id == value.id){
+                    console.log("ids : ", select.id, value.id, select.id == value.id);                   
+                    ret = true;
+                }
+            }
+            if(ret){
+                console.log("return selected");
+                return 'selected';
+            }
+            index++;
+        });
+
+        return ret ? index: -1;
     }
 
     updateInput(evt, classname, value, type){
@@ -84,7 +180,7 @@ class MultipleSelect extends Component{
         if(checked){
             this.state.selected.push(value);
         }else{
-            const index = this.state.selected.indexOf(value);
+            const index = this.indexValue(value);
             this.state.selected.splice(index, 1);
         }
         this.setState({

@@ -29,8 +29,7 @@ function logoutUser(){
 }
 
 function fetchUser(username) {
-  console.log("let's get that user :", username);
-  
+  //console.log("let's get that user :", username);
   return fetch('/api/user/username/'+username)
     .then(handleErrors)
     .then(res => res.json());
@@ -63,12 +62,12 @@ function fetchUpdateUser(user){
 }
 
 export function updateUser(user) {
-  console.log("let's update this user : ", user);
+  //console.log("let's update this user : ", user);
   return dispatch => {
     dispatch(updateUserBegin());
     return fetchUpdateUser(user)
       .then(json => {
-        console.log("success!",json);
+        //console.log("success!",json);
         dispatch(updateUserSuccess(json));
         return json;
       })
@@ -84,7 +83,7 @@ export function subscribeUser(user){
     dispatch(subscribeBegin());
     return addUser(user)
       .then(json => {
-        console.log("success subscribe : ",json);
+        //console.log("success subscribe : ",json);
         return dispatch(subscribeSuccess(json.username, json.password));
       })
       .catch(error =>{
@@ -99,7 +98,7 @@ export function logout(){
     dispatch(logoutBegin());
     return logoutUser()
       .then(res =>{
-        console.log("successfuly logout!", res);
+        //console.log("successfuly logout!", res);
         dispatch(logoutSuccess(res));
         return res;
       })
@@ -110,13 +109,12 @@ export function logout(){
 }
 
 export function getUser(username) {
-    console.log("GET USER : ", username);
+    //console.log("GET USER : ", username);
     return dispatch => {
-      console.log("Allo ?");
       dispatch(getUserBegin());
       return fetchUser(username)
         .then(json => {
-          console.log("success!",json);
+          //console.log("success!",json);
           dispatch(getUserSuccess(json));
           return json;
         })
@@ -131,7 +129,7 @@ export function login(username, password) {
       dispatch(loginBegin(username, password));
       return loginUser(username, password)
         .then(json => {
-          console.log("success login : ",json);
+          //console.log("success login : ",json);
           return dispatch(loginSuccess(username));
         })
         .catch(error =>{

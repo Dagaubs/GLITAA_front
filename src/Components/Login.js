@@ -47,7 +47,6 @@ class Login extends Component {
         {
             errorMessage = 'Error for login ! => ' + error_login;
         }
-        console.log("ALLÔ ?: ", authenticated, username, user);
         if(authenticated && username && !user && !this.state.Get_User_begin){
             this.setState({
                 Get_User_begin: true

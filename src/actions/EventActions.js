@@ -5,7 +5,7 @@ function getEvents() {
 }
 
 function fetchAddEvent(event) {
-  console.log("fetchAddEvent :", event);
+  //console.log("fetchAddEvent :", event);
   return fetch('/api/events/create',{
     method: 'POST',
     headers: {
@@ -21,10 +21,10 @@ function fetchAddEvent(event) {
 export function addEvent(event) {
   return dispatch => {
     dispatch(addEventBegin());
-    console.log("EVENT :",event);
+    //console.log("EVENT :",event);
     return fetchAddEvent(event)
       .then(json =>{
-          console.log("success!",json);
+          //console.log("success!",json);
           dispatch(addEventSuccess(json));
           return json;
       })
@@ -39,7 +39,7 @@ export function fetchEvents() {
       dispatch(fetchEventsBegin());
       return getEvents()
         .then(json => {
-          console.log("success!",json);
+          //console.log("success!",json);
           dispatch(fetchEventsSuccess(json));
           return json;
         })

@@ -1,5 +1,5 @@
 function getLocations() {
-  console.log("let's fetch Locations");
+  //console.log("let's fetch Locations");
   //return fetch(url+"/Locations/", {method: 'text/plain', mode: 'cors'})
   return fetch('/api/locations/')
     .then(handleErrors)
@@ -7,7 +7,7 @@ function getLocations() {
 }
 
 function fetchAddLocation(dtype, location_name) {
-  console.log("FetchAddLocation dtype : " + dtype + " | location : " + location_name);
+  //console.log("FetchAddLocation dtype : " + dtype + " | location : " + location_name);
   return fetch('/api/locations/create/'+ location_name +'/'+ dtype,{
     method: 'POST',
     headers: {
@@ -22,7 +22,7 @@ export function addLocation(dtype, location_name) {
     dispatch(addLocationBegin());
     return fetchAddLocation(dtype, location_name)
       .then(json =>{
-          console.log("success!", json);
+          //console.log("success!", json);
           dispatch(addLocationSuccess(json, dtype));
           return json;
       })

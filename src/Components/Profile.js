@@ -56,8 +56,10 @@ class Profile extends Component {
 
         this.state = {
             email_input: this.props.user == null ? '' : this.props.user.email,
-            selectedLocations: this.props.user == null ? [] : this.props.user.favoriteLocations == null ? [] : locationsToJson(this.props.user.favoriteLocations),
-            selectedMusicStyles: this.props.user == null ? [] : this.props.user.favoriteStyles == null ? [] : musicstylesToJson(this.props.user.favoriteStyles)
+            //selectedLocations: this.props.user == null ? [] : this.props.user.favoriteLocations == null ? [] : locationsToJson(this.props.user.favoriteLocations),
+            //selectedMusicStyles: this.props.user == null ? [] : this.props.user.favoriteStyles == null ? [] : musicstylesToJson(this.props.user.favoriteStyles)
+            selectedLocations: this.props.user == null ? [] : this.props.user.favoriteLocations == null ? [] : this.props.user.favoriteLocations,
+            selectedMusicStyles: this.props.user == null ? [] : this.props.user.favoriteStyles == null ? [] : this.props.user.favoriteStyles
         }
     }
 
@@ -72,7 +74,7 @@ class Profile extends Component {
 
     render(){
         const {email_input, selectedLocations, selectedMusicStyles} = this.state;
-        console.log('selecteds : ', selectedLocations, selectedMusicStyles);
+        //console.log('selecteds : ', selectedLocations, selectedMusicStyles);
         return (
             <div className="app">
                 <Header />
@@ -91,7 +93,22 @@ class Profile extends Component {
     }
 
     saveModifications(){
+        const {email_input, selectedLocations, selectedMusicStyles} = this.state;
+        //console.log('replaced string : ',selectedLocations.replace('/(\\")', '\"'));
+        //console.log('selected :', selectedLocations, selectedMusicStyles);
+        var user_tmp = this.props.user;
+        user_tmp.email = this.state.email_input;
+        user_tmp.favoriteLocations = this.state.selectedLocations;
+        user_tmp.favoriteStyles = this.state.selectedMusicStyles;
+        console.log("let json do the work : ", JSON.stringify(user_tmp));
+        this.props.updateUser(JSON.stringify(user_tmp));
+    }
 
+    returnUser(){
+        const user = this.props.user;
+        const {email_input, selectedLocations, selectedMusicStyles} = this.state;
+        const ret= '{\"user_id\": ' + user.user_id+ ',\"username\": \"'+user.username+'\",\"password\": \"'+user.password+'\",\"email\": \"'+email_input+'\",\"eventsFaved\": '+ user.eventsFaved +',\"favoriteLocations\": '+selectedLocations+',\"enabled\": '+user.enabled+',\"authorities\": '+user.authorities+',\"accountNonExpired\": '+user.accountNonExpired+',\"accountNonLocked\": '+user.accountNonLocked+',\"credentialsNonExpired\": '+user.credentialsNonExpired+',\"favoriteStyles\": '+selectedMusicStyles+'}';
+        return ret;
     }
 
     updateEmailInput(evt){

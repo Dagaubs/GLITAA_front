@@ -1,5 +1,5 @@
 function fetchUser(username) {
-    console.log("let's get that user :", username);
+    //console.log("let's get that user :", username);
     
     return fetch('/api/user/username/'+username)
       .then(handleErrors)
@@ -11,7 +11,7 @@ export function getUser(username) {
       dispatch(getUserBegin());
       return fetchUser(username)
         .then(json => {
-          console.log("success!",json);
+          //console.log("success!",json);
           dispatch(getUserSuccess(json));
           return json;
         })

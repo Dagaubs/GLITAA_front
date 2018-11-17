@@ -15,7 +15,7 @@ class Event extends Component {
         {
             img_text = 'default_img';
         }
-        console.log('start : ' + dateStart + ' | end : ' + dateFinish);
+        //console.log('start : ' + dateStart + ' | end : ' + dateFinish);
         return (
             <div className="event" >
                 {img ? 
