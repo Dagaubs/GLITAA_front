@@ -4,14 +4,19 @@ import {
   FETCH_EVENTS_FAILURE,
   ADD_EVENT_BEGIN,
   ADD_EVENT_SUCCESS,
-  ADD_EVENT_FAILURE
+  ADD_EVENT_FAILURE,
+  UPDATE_IMG_BEGIN,
+  UPDATE_IMG_SUCCESS,
+  UPDATE_IMG_FAILURE
 } from "../actions/EventActions";
 
 const initialState = {
   items: [],
   loading: false,
   error: null,
+  addedevent: null,
   addsuccess: false,
+  updatesuccess: false,
 };
 
 export default function eventReducer(
@@ -25,7 +30,10 @@ export default function eventReducer(
       return {
         ...state,
         loading: true,
-        error: null
+        error: null,
+        addsuccess: false,
+        updatesuccess: false,
+        addedevent: null,
       };
 
     case FETCH_EVENTS_SUCCESS:
@@ -56,6 +64,8 @@ export default function eventReducer(
         addsuccess: false,
         loading: true,
         error: null,
+        updatesuccess: false,
+        addedevent: null,
       };
     
     case ADD_EVENT_SUCCESS:
@@ -63,7 +73,8 @@ export default function eventReducer(
         ...state,
         addsuccess: true,
         loading: false,
-        items: [...state.items, action.payload.event]
+        items: [...state.items, action.payload.event],
+        addedevent: action.payload.event
       };
 
     case ADD_EVENT_FAILURE:
@@ -73,6 +84,31 @@ export default function eventReducer(
         error: action.payload.error
       }
 
+
+    case UPDATE_IMG_BEGIN:
+    return {
+      ...state,
+      addsuccess: false,
+      loading: true,
+      error: null,
+      updatesuccess: false,
+    };
+  
+  case UPDATE_IMG_SUCCESS:
+    return {
+      ...state,
+      updatesuccess: true,
+      loading: false,
+      items: [...state.items, action.payload.event]
+    };
+
+  case UPDATE_IMG_FAILURE:
+    return {
+      ...state,
+      loading: false,
+      error: action.payload.error
+    }
+    
     default:
       // ALWAYS have a default case in a reducer
       return state;

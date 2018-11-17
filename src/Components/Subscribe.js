@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { login, getUser, subscribeUser } from '../actions/LoginActions';
 
 const mapDispatchToProps = dispatch => {
@@ -85,7 +85,7 @@ class Subscribe extends Component {
                     <input type='password' onChange={evt => this.updatePasswordConfirmInput(evt)} value={password_input_confirm}/>
                     <p>Mail</p>
                     <button onClick={() => this.subscribeButtonClick()}>Subscribe</button>
-
+                    <Link to='/login'><p>Already subscribed ? Login !</p></Link>
                     {error && 
                         <p className="error_message">{error_txt_message}</p>
                     }

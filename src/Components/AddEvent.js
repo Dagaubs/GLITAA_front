@@ -8,7 +8,7 @@ import AddLocation from './AddLocation';
 import AddMusicStyle from './AddMusicStyle';
 import { fetchLocations } from "../actions/LocationActions";
 import { fetchMusicStyles } from "../actions/MusicStyleActions";
-import { addEvent } from "../actions/EventActions";
+import { addEvent, updateEventImg } from "../actions/EventActions";
 var dateFormat = require('dateformat');
 var format = 'yyyy-mm-dd';
 
@@ -22,6 +22,9 @@ const mapDispatchToProps = dispatch => {
         },
         addEvent: (event)=>{
             dispatch(addEvent(event));
+        },
+        updateEventImg: (event, img)=>{
+            dispatch(updateEventImg(event, img));
         }
     }
 }
@@ -31,6 +34,8 @@ const mapStateToProps = state => ({
     loading_location: state.locations.loading,
     error_location: state.locations.error,
     add_event_success: state.events.addsuccess,
+    update_event_success: state.events.updatesuccess,
+    added_event: state.events.addedevent,
     musicstyles: state.musicstyles.items,
     loading_musicstyles: state.musicstyles.loading,
     error_musicstyles: state.musicstyles.error,
@@ -53,12 +58,14 @@ class AddEvent extends Component {
             dateEnd: '',
             dateEndFormatted: '',
             selectedLocations: [],//[{'regions': [], 'departements': [], 'villes': []}],
-            selectedMusicStyles: []
+            selectedMusicStyles: [],
+            img: null,
+            img_url: './images/empty-img.jpg'
         }
     }
 
     componentDidMount(){
-        console.log("ComponentDidMount", this.props.locations)
+        //console.log("ComponentDidMount", this.props.locations)
         if(this.props.locations != []){
             this.props.fetchLocations();
         }
@@ -68,11 +75,15 @@ class AddEvent extends Component {
     }
 
     render(){
-        const { error_location, loading_location, error_musicstyles, loading_musicstyles, add_event_success } = this.props;
-        if (add_event_success){
+        const { error_location, loading_location, error_musicstyles, loading_musicstyles, add_event_success, update_event_success, added_event } = this.props;
+        if(update_event_success){
             return (
                 <Redirect to='/' />
             )
+        }
+        
+        if (add_event_success && added_event != null){
+            this.props.updateEventImg(added_event, this.state.img);
         }
         if (error_location || error_musicstyles) {
             return <div>Error! {error_location ? error_location.message : ''} {error_musicstyles ? error_musicstyles.message : ''}</div>;
@@ -90,6 +101,8 @@ class AddEvent extends Component {
                     <input type="text" value={this.state.title} placeholder="Event title" onChange={evt => this.updateInputTitle(evt)}/>
                     <p>Event URL</p>
                     <input type="text" value={this.state.url} placeholder="Event url" onChange={evt => this.updateInputUrl(evt)}/>
+                    <img src={this.state.img_url} />
+                    <input type="file" accept='.jpg,.jpeg,.png.gif' onChange={evt => this.updateFileImg(evt)} />
                     <p>Starts : </p>
                     <DatePicker onChange={(value) => this.updateDateBegin(value)} value={this.state.dateBegin}/>
                     <p>Ends : </p>
@@ -107,7 +120,19 @@ class AddEvent extends Component {
     }
 
     OnClickCreateEvent(){
-        var event = '{\"title\": \"'
+        var event = {
+            title: this.state.title,
+            creator: this.props.user,
+            url: this.state.url,
+            locations: this.state.selectedLocations,
+            musicstyles: this.state.selectedMusicStyles,
+            date_start: this.state.dateBeginFormatted,
+            date_end: this.state.dateEndFormatted,
+            //img: this.state.img
+        }
+        this.props.addEvent(JSON.stringify(event));
+        /*
+        var eventString = '{\"title\": \"'
         + this.state.title+
         '\",\"creator\": '
         + usersToJson(this.props.user) +
@@ -122,9 +147,18 @@ class AddEvent extends Component {
         + '\",\"date_end\": \"' 
         + this.state.dateEndFormatted
         + '\"}';
-        this.props.addEvent(event);
+        this.props.addEvent(eventString);*/
     }
 
+    updateFileImg(evt){
+        const file = evt.target.files[0];
+        console.log(file);
+        const img_url = window.URL.createObjectURL(file);
+        this.setState({
+            img: file,
+            img_url: img_url
+        })
+    }
 
     updateMusicStylesInput = (values) =>{
         this.setState({

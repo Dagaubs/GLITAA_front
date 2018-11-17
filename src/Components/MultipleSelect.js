@@ -25,7 +25,7 @@ function redefineLocations(locations){
     if(locations.length == 0) {
         return [];
     }
-    console.log("redefine locations!", locations);
+    //console.log("redefine locations!", locations);
     if(locations.regions != undefined){
         var new_regions = [];
         locations.regions.map(region => {
@@ -90,7 +90,7 @@ class MultipleSelect extends Component{
 
     render(){
         const {selected, content } = this.state;
-        console.log("selected & content :", selected, content);
+        //console.log("selected & content :", selected, content);
         if(this.props.categorie == 'musicstyles'){
             return(
                 <ul className="musicstyles_ul multiple_select">
@@ -154,17 +154,17 @@ class MultipleSelect extends Component{
         this.state.selected.map(select => {
             if (this.props.categorie == 'musicstyles'){
                 if(select.styleMusic_id == value.styleMusic_id){
-                    console.log("styleMusic_ids : ", select.styleMusic_id, value.styleMusic_id, select.styleMusic_id == value.styleMusic_id);
+                    //console.log("styleMusic_ids : ", select.styleMusic_id, value.styleMusic_id, select.styleMusic_id == value.styleMusic_id);
                     ret = true;
                 }
             }else{
                 if(select.id == value.id){
-                    console.log("ids : ", select.id, value.id, select.id == value.id);                   
+                    //console.log("ids : ", select.id, value.id, select.id == value.id);                   
                     ret = true;
                 }
             }
             if(ret){
-                console.log("return selected");
+                //console.log("return selected");
                 return 'selected';
             }
             index++;

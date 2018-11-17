@@ -1,3 +1,5 @@
+var axios = require('axios');
+
 function getEvents() {
   return fetch('/api/events/')
     .then(handleErrors)
@@ -5,7 +7,7 @@ function getEvents() {
 }
 
 function fetchAddEvent(event) {
-  //console.log("fetchAddEvent :", event);
+  console.log("fetchAddEvent :", event);
   return fetch('/api/events/create',{
     method: 'POST',
     headers: {
@@ -16,6 +18,34 @@ function fetchAddEvent(event) {
   })
       .then(handleErrors)
       .then(res => res.json());
+}
+
+function fetchUpdateEventImg(event, img){
+  let formData = new FormData();
+  formData.append('event', event);
+  formData.append('img', img);
+
+  return axios.post('/api/event/update', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    }})
+    .then(handleErrors)
+    .then(res => res.json());
+}
+
+export function updateEventImg(event, img){
+  var blobImg = new Blob([img], {type : img.type});
+  return dispatch => {
+    dispatch(updateEventImgBegin());
+    return fetchUpdateEventImg(event, blobImg)
+      .then(json =>{
+        dispatch(updateEventImgSuccess(json));
+        return json;
+      })
+      .catch(error =>{
+        dispatch(updateEventImgFailure(error))
+      })
+  }
 }
 
 export function addEvent(event) {
@@ -63,6 +93,10 @@ export function fetchEvents() {
   export const ADD_EVENT_BEGIN = "ADD_EVENT_BEGIN";
   export const ADD_EVENT_SUCCESS = "ADD_EVENT_SUCCESS";
   export const ADD_EVENT_FAILURE = "ADD_EVENT_FAILURE";
+  export const UPDATE_IMG_BEGIN = "UPDATE_IMG_BEGIN";
+  export const UPDATE_IMG_SUCCESS = "UPDATE_IMG_SUCCESS";
+  export const UPDATE_IMG_FAILURE = "UPDATE_IMG_FAILURE";
+
   
   export const fetchEventsBegin = () => ({
     type: FETCH_EVENTS_BEGIN
@@ -89,5 +123,19 @@ export function fetchEvents() {
   
   export const addEventFailure = error => ({
     type: ADD_EVENT_FAILURE,
+    payload: { error }
+  });
+
+  export const updateEventImgBegin = () => ({
+    type: UPDATE_IMG_BEGIN
+  });
+  
+  export const updateEventImgSuccess = events => ({
+    type: UPDATE_IMG_SUCCESS,
+    payload: { events }
+  });
+  
+  export const updateEventImgFailure = error => ({
+    type: UPDATE_IMG_FAILURE,
     payload: { error }
   });
