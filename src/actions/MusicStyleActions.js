@@ -25,11 +25,14 @@ export function addMusicStyle(musicstyle) {
     return fetchAddMusicStyle(musicstyle)
       .then(json =>{
           console.log("success!",json);
-          dispatch(addMusicStyleSuccess(json));
+          if(json.style=="ALREADY_EXIST" || json.style=="ERROR")
+              dispatch(addMusicStyleFailure(json.style));
+          else
+            dispatch(addMusicStyleSuccess(json));
           return json;
       })
       .catch(error =>
-        dispatch(fetchMusicStylesFailure(error))
+        dispatch(addMusicStyleFailure(error))
       );
   };
 }

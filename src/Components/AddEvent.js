@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../css/AddEvent.css';
 import { connect } from 'react-redux';
 import Header from './Header';
 import { Redirect } from 'react-router-dom';
@@ -9,6 +10,7 @@ import AddMusicStyle from './AddMusicStyle';
 import { fetchLocations } from "../actions/LocationActions";
 import { fetchMusicStyles } from "../actions/MusicStyleActions";
 import { addEvent, updateEventImg } from "../actions/EventActions";
+import default_img_url_from_component from './Event';
 var dateFormat = require('dateformat');
 var format = 'yyyy-mm-dd';
 
@@ -60,7 +62,7 @@ class AddEvent extends Component {
             selectedLocations: [],//[{'regions': [], 'departements': [], 'villes': []}],
             selectedMusicStyles: [],
             img: null,
-            img_url: './images/empty-img.jpg'
+            img_url: default_img_url_from_component
         }
     }
 
@@ -85,9 +87,9 @@ class AddEvent extends Component {
         if (add_event_success && added_event != null){
             this.props.updateEventImg(added_event, this.state.img);
         }
-        if (error_location || error_musicstyles) {
+        /*if (error_location || error_musicstyles) {
             return <div>Error! {error_location ? error_location.message : ''} {error_musicstyles ? error_musicstyles.message : ''}</div>;
-        }
+        }*/
         
         if (loading_location || loading_musicstyles) {
             return <div>Loading...</div>;
@@ -103,9 +105,9 @@ class AddEvent extends Component {
                     <input type="text" value={this.state.url} placeholder="Event url" onChange={evt => this.updateInputUrl(evt)}/>
                     <img src={this.state.img_url} />
                     <input type="file" accept='.jpg,.jpeg,.png.gif' onChange={evt => this.updateFileImg(evt)} />
-                    <p>Starts : </p>
+                    <p className="p_before_date-picker">From : </p>
                     <DatePicker onChange={(value) => this.updateDateBegin(value)} value={this.state.dateBegin}/>
-                    <p>Ends : </p>
+                    <p className="p_before_date-picker">To : </p>
                     <DatePicker onChange={(value) => this.updateDateEnd(value)} value={this.state.dateEnd}/>
                     <p className="add_p">Locations :</p><AddLocation />
                     <MultipleSelect content={this.props.locations} selected={this.state.selectedLocations} callbackUpdate={(values) => this.updateLocationsInput(values)} categorie="locations" />

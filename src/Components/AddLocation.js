@@ -29,14 +29,14 @@ class AddLocation extends Component{
     render(){
         return(
             <div className="addLocation add_comp">
-                <select className="typeselect_addms" value={this.state.type_select} onChange={evt => this.updateSelectType(evt)}>
+                <select className="type_select" value={this.state.type_select} onChange={evt => this.updateSelectType(evt)}>
                     <option value="null" disabled selected>Select type</option>
                     <option value="region">Région</option>
                     <option value="departement">Departement</option>
                     <option value="ville">Ville</option>
                 </select>
-                <input type="text" value={this.state.name_input} onChange={evt => this.updateInputName(evt)} placeholder={this.state.input_placeholder}/>
-                <button onClick={() => this.onClickAction()}>Add Location</button> 
+                <input className="name_input" type="text" value={this.state.name_input} onChange={evt => this.updateInputName(evt)} placeholder={this.state.input_placeholder}/>
+                <button onClick={() => this.onClickAction()}>Add new</button> 
             </div>
         )
     }
