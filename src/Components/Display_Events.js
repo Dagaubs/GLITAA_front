@@ -37,9 +37,9 @@ class Display_Events extends Component {
         var eventsfiltered = this.modifyEventsListAlongFilter();
         console.log("filtered events:", eventsfiltered);
         return(
-            <div className="Display_Events page_body">
+            <div className="display_events">
                 {eventsfiltered.map(e => (
-                    <Event key={e.id} title={e.title} dateBegin={e.date_start} dateEnd={e.date_end} musicStyles={e.musicstyles} locations={e.locations} img={e.img}/>    
+                    <Event key={e.id} title={e.title} dateBegin={e.date_start} dateEnd={e.date_end} musicStyles={e.musicstyles} locations={e.locations} img={e.img} url={e.url}/>    
                 ))}
             </div>
         )

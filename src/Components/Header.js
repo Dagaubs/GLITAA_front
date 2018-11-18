@@ -15,10 +15,12 @@ class Header extends Component {
                 <Redirect to='/login' />
             )
         return(
-           <div className="header">
-            <Link to='/' className="home"><h2>We Are RAVE !</h2></Link>
-            <Link to='/me' className="profile"><button>edit profile</button></Link>
-            <Link to='/logout' className="logout"><button> Logout! </button></Link>
+            <div className="header">
+                <Link to='/' className="home"><h2>We Are RAVE !</h2></Link>
+                <div className="header_buts">
+                    <Link to='/me' className="profile"><button>edit profile</button></Link>
+                    <Link to='/logout' className="logout"><button> Logout! </button></Link>
+                </div>
            </div> 
         )
     }

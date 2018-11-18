@@ -1,0 +1,50 @@
+/*.login .no_error, .login .no_loading {
+    display: none
+}*/
+.login{
+    font-size: 1em;
+}
+
+.login>div{
+    margin: 0;
+}
+
+.login>div>*{
+    display: inline-block;
+}
+
+.inputs_div>input{
+    max-width: 44%;
+    text-align: center;
+    margin: 0 4.5% 10px 4.5%;
+}
+
+.login>.inputs_div>.username_input{
+    margin-left: 0;
+}
+
+.login>.inputs_div>.pwd_input{
+    margin-right: 0;
+}
+
+.buttons_div>*{
+    min-width: 25%;
+}
+
+.buttons_div button{
+    font-size: 1em;
+}
+
+.login_button{
+    margin-left: 12%;
+    margin-right: 12%;
+}
+
+.subscribe_a{
+    margin-left: 12%;
+    margin-right: 12%;
+}
+
+.subscribe_button{
+    width: 100%;
+}

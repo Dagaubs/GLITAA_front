@@ -3,15 +3,18 @@ import Filtering_Bar from './Filtering_Bar';
 import Header from './Header';
 import Display_Events from './Display_Events';
 import AddEventButton from './AddEventButton';
+import '../css/Home.css';
 
 class Home extends Component {
     render(){
         console.log("home render");
         return (
-            <div className="home">
+            <div className="app">
                 <Header />
-                <Display_Events />
-                <AddEventButton />
+                <div className="home page_body">
+                    <Display_Events />
+                    <AddEventButton />
+                </div>
             </div>
         )
     }

@@ -1,29 +1,29 @@
 @font-face {
   font-family: 'Hooked Up';
-  src: url('./fonts/hooked-up-101/HookedUpOneOhOne-Regular.eot');
-  src: url('./fonts/hooked-up-101/HookedUpOneOhOne-Regular.eot?#iefix') format('embedded-opentype'),
-      url('./fonts/hooked-up-101/HookedUpOneOhOne-Regular.woff2') format('woff2'),
-      url('./fonts/hooked-up-101/HookedUpOneOhOne-Regular.woff') format('woff');
+  src: url('../fonts/hooked-up-101/HookedUpOneOhOne-Regular.eot');
+  src: url('../fonts/hooked-up-101/HookedUpOneOhOne-Regular.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/hooked-up-101/HookedUpOneOhOne-Regular.woff2') format('woff2'),
+      url('../fonts/hooked-up-101/HookedUpOneOhOne-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Quantik';
-  src: url('./fonts/quantik/Quantik-Bold.eot');
-  src: url('./fonts/quantik/Quantik-Bold.eot?#iefix') format('embedded-opentype'),
-      url('./fonts/quantik/Quantik-Bold.woff2') format('woff2'),
-      url('./fonts/quantik/Quantik-Bold.woff') format('woff');
+  src: url('../fonts/quantik/Quantik-Bold.eot');
+  src: url('../fonts/quantik/Quantik-Bold.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/quantik/Quantik-Bold.woff2') format('woff2'),
+      url('../fonts/quantik/Quantik-Bold.woff') format('woff');
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Quantik';
-  src: url('./fonts/quantik/Quantik-Regular.eot');
-  src: url('./fonts/quantik/Quantik-Regular.eot?#iefix') format('embedded-opentype'),
-      url('./fonts/quantik/Quantik-Regular.woff2') format('woff2'),
-      url('./fonts/quantik/Quantik-Regular.woff') format('woff');
+  src: url('../fonts/quantik/Quantik-Regular.eot');
+  src: url('../fonts/quantik/Quantik-Regular.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/quantik/Quantik-Regular.woff2') format('woff2'),
+      url('../fonts/quantik/Quantik-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -43,8 +43,12 @@ body>*, body>*>*{
   min-height: 100%;
 }
 
+.app{
+  min-height: 667px;
+}
+
 .header{
-  background-image : url('./images/rave_bg.jpg');
+  background-image : url('../images/rave_bg.jpg');
   padding: 15px 0px 15px 0px;
   background-size: cover;
 }
@@ -52,7 +56,7 @@ body>*, body>*>*{
 .header h2{
   margin: 0;
   text-align: center;
-  font-size: 3em;
+  font-size: 5em;
   letter-spacing: 1.5px;
   font-family: 'Hooked Up';
   color: lightyellow;
@@ -62,17 +66,25 @@ body>*, body>*>*{
   color: lightyellow;
 }
 
-.logout{
+.header_buts{
   position: absolute;
-  right: 4px;
+  right: 5px;
   top: 5px;
+  max-width: 100px;
+}
+
+.header_buts>*{
+  float: right;
+  margin-right: 0;
+  margin-left: auto;
 }
 
 .page_body{
-  padding: 2.5%;
+  padding: 4% 2.5% 2.5% 2.5%;
   background-color: hsl(217, 48%, 18%);
   -moz-box-shadow: inset 0px 0px 32px 2px rgba(3,13,28,1);
   box-shadow: inset 0px 0px 32px 2px rgba(3,13,28,1);
+  min-height: 100%;
 }
 
 .addEvent{
@@ -114,10 +126,20 @@ body>*, body>*>*{
   display: inline-block;
 }
 
-.display_error, .display_loading{
+.page_body .display_error, .page_body .display_loading{
   display: block;
+  margin: 2.5% 0 5% 0;
 }
-.no_error, .no_loading{
+
+.page_body .display_error{
+  color: red;
+}
+
+.page_body .display_loading{
+  color: lightgoldenrodyellow;
+}
+
+.page_body .no_error,.page_body .no_loading{
   display: none;
 }
 
