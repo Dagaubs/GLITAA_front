@@ -21,6 +21,23 @@ function fetchAddEvent(event) {
 }
 
 function fetchUpdateEventImg(event, img){
+  var values = {
+    event: event,
+    img: 'data:'+img.type+';base64,' + img,
+  };
+  fetch('/api/event/update', {
+    method: 'POST',
+    headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(values)
+})
+    .then(handleErrors)
+    .then(res => res.json());
+}
+
+function fetchAxiosUpdateEventImg(event, img){
   let formData = new FormData();
   formData.append('event', event);
   formData.append('img', img);
@@ -35,9 +52,10 @@ function fetchUpdateEventImg(event, img){
 
 export function updateEventImg(event, img){
   var blobImg = new Blob([img], {type : img.type});
+  console.log("Blob ", blobImg);
   return dispatch => {
     dispatch(updateEventImgBegin());
-    return fetchUpdateEventImg(event, blobImg)
+    return fetchUpdateEventImg(event, img)
       .then(json =>{
         dispatch(updateEventImgSuccess(json));
         return json;
