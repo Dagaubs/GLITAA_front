@@ -79,19 +79,31 @@ ul.multiple_select, .multiple_select ul, .multiple_select li{
     display: inline-block;
     max-width: 31%;
     min-width: 31%;
-    margin: 0px 2% 0px 2%;
+    margin: 0px 1% 0px 1%;
     vertical-align: top;
+}
+
+.locations_ul>.regions{
+    text-align: left;
+}
+
+.locations_ul>.departements{
+    text-align: center;
+}
+
+.locations_ul>.villes{
+    text-align: right;
 }
 
 .locations_ul>.regions>p{
     color: brown;
 }
 
-.locations_ul>.departement>p{
+.locations_ul>.departements>p{
     color: yellow;
 }
 
-.locations_ul>.departement>p{
+.locations_ul>.villes>p{
     color: yellowgreen;
 }
 
@@ -99,11 +111,11 @@ ul.multiple_select, .multiple_select ul, .multiple_select li{
     background-color: brown;
 }
 
-.locations_ul .departement li{
+.locations_ul>.departements>li{
     background-color: yellow;
 }
 
-.locations_ul .villes li{
+.locations_ul>.villes>li{
     background-color: greenyellow;
 }
 

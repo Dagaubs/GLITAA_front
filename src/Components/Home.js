@@ -3,7 +3,7 @@ import Filtering_Bar from './Filtering_Bar';
 import Header from './Header';
 import Display_Events from './Display_Events';
 import AddEventButton from './AddEventButton';
-import '../css/Home.css';
+import '../css/Event.css';
 
 class Home extends Component {
     render(){

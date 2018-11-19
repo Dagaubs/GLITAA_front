@@ -1,7 +1,13 @@
 import {
     GET_USER_BEGIN,
     GET_USER_SUCCESS,
-    GET_USER_FAILURE
+    GET_USER_FAILURE,
+    FOLLOW_EVENT_BEGIN,
+    FOLLOW_EVENT_SUCCESS,
+    FOLLOW_EVENT_FAILURE,
+    UNFOLLOW_EVENT_BEGIN,
+    UNFOLLOW_EVENT_SUCCESS,
+    UNFOLLOW_EVENT_FAILURE
   } from "../actions/UserActions";
   
   const initialState = {
@@ -45,6 +51,27 @@ import {
           error: action.payload.error,
           item: null
         };
+      
+      case FOLLOW_EVENT_BEGIN:
+        return{
+          ...state,
+          loading: true,
+          error: null,
+        };
+
+      case FOLLOW_EVENT_SUCCESS:
+        return{
+          ...state,
+          loading: false,
+          item: action.payload.user
+        }
+
+      case FOLLOW_EVENT_FAILURE:
+        return{
+          ...state,
+          loading: false,
+          error: action.payload.error
+        }
   
       default:
         // ALWAYS have a default case in a reducer

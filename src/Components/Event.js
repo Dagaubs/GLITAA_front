@@ -23,26 +23,32 @@ class Event extends Component {
                 <img className={img ? "img_ev" : "img_ev default"} src={img_url} />
                 <div className="event_info">
                     <h4>{title}</h4>
-                    <a href={url}>Link to event page</a>
+                    {url && <a href={url}>Link to event page</a>}
                     <div className="date_ev">
-                        <p className="begin_ev">{dateStart != null && "from " + dateStart}</p>
-                        <p className="date_sep"></p>
-                        <p className="begin_ev">{dateFinish != null && "to " + dateFinish}</p>
+                        {dateStart != null && !dateStart == '' && <p className="begin_ev">{"from " + dateStart}</p>}
+                        {dateStart != null && !dateStart == '' && dateEnd != null && !dateEnd == '' && <p className="date_sep"></p>}
+                        {dateFinish != null && !dateEnd == '' && <p className="end_ev">{"to " + dateFinish}</p>}
                     </div>
                     <ul className="musicstyles_ev">
                         {musicStyles.map(ms => (
-                            <li className="ms_ev">{ms.style}</li>
+                            <li key={ms.id} className="ms_ev">{ms.style}</li>
                         ))}
                     </ul>
                     <ul className="locations_ev">
                         {locations.map(location =>(
-                            <li className="location_ev">{location.name}</li>
+                            <li key={location.id} className="location_ev">{location.name}</li>
                         ))}
                     </ul>
+                    {this.props.followMethod && <button className='follow_button' onClick={() => this.props.followMethod(this)}>Follow !</button>}
                 </div>
             </div>
         )
     }
+
+    follow_buttonClicked(){
+
+    }
+
 }
 export default Event
 /*

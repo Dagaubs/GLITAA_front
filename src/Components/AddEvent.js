@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import '../css/AddEvent.css';
 import { connect } from 'react-redux';
+import '../css/AddEvent.css';
+import '../css/Event.css';
 import Header from './Header';
+import Event from './Event';
 import { Redirect } from 'react-router-dom';
 import MultipleSelect from './MultipleSelect';
 import DatePicker from 'react-date-picker';
@@ -115,6 +117,9 @@ class AddEvent extends Component {
                     <MultipleSelect content={this.props.musicstyles} selected={this.state.selectedMusicStyles} callbackUpdate={(values) => this.updateMusicStylesInput(values)} categorie="musicstyles" />
 
                     <button className="createEvent_b" onClick={() => this.OnClickCreateEvent()}>Create a new Event !</button>
+                    
+                    <p className="preview_p">Preview :</p>
+                    <Event title={this.state.title} dateBegin={this.state.dateBeginFormatted} dateEnd={this.state.dateEndFormatted} musicStyles={this.state.selectedMusicStyles} locations={this.state.selectedLocations} img={this.state.img} url={this.state.url}/>    
                 </div>
             </div>
             
