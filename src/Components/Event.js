@@ -3,7 +3,7 @@ export var default_img_url_from_component = require('../images/empty-img.jpg');
 
 class Event extends Component {
     render() {
-        const {title, url, locations, musicStyles, dateBegin, dateEnd, img} = this.props;
+        const {id, title, url, locations, musicStyles, dateBegin, dateEnd, img, isFollowed} = this.props;
         var dateStart = null, dateFinish = null, img_url = default_img_url_from_component;
         //console.log("locations :", locations);
         if(dateBegin != null){
@@ -17,6 +17,7 @@ class Event extends Component {
         {
             img_url = window.URL.createObjectURL(img);
         }
+        //console.log("Event " + id + (isFollowed ? " is " : " is NOT ") + "followed ", isFollowed);
         //console.log('start : ' + dateStart + ' | end : ' + dateFinish);
         return (
             <div className="event" >
@@ -39,16 +40,11 @@ class Event extends Component {
                             <li key={location.id} className="location_ev">{location.name}</li>
                         ))}
                     </ul>
-                    {this.props.followMethod && <button className='follow_button' onClick={() => this.props.followMethod(this)}>Follow !</button>}
+                    {this.props.buttonClickedMethod && <button className={isFollowed ? 'unfollow_button' : 'follow_button'} onClick={() => this.props.buttonClickedMethod(this)}>{isFollowed ? "Unfollow" : "Follow"}</button>}
                 </div>
             </div>
         )
     }
-
-    follow_buttonClicked(){
-
-    }
-
 }
 export default Event
 /*

@@ -72,7 +72,28 @@ import {
           loading: false,
           error: action.payload.error
         }
-  
+
+      case UNFOLLOW_EVENT_BEGIN:
+        return{
+          ...state,
+          loading: true,
+          error: null
+        }
+
+      case UNFOLLOW_EVENT_SUCCESS:
+        return{
+          ...state,
+          loading: false,
+          item: action.payload.user
+        }
+
+      case UNFOLLOW_EVENT_FAILURE:
+        return{
+          ...state,
+          loading: false,
+          error: action.payload.error
+        }      
+
       default:
         // ALWAYS have a default case in a reducer
         return state;

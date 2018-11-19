@@ -1,3 +1,5 @@
+import { getUserSuccess } from './LoginActions';
+
 function fetchUser(username) {
     //console.log("let's get that user :", username);
     
@@ -24,19 +26,62 @@ function fetchFollowEvent(user, event){
       .then(res => res.json());
 }
 
+function fetchUnfollowEvent(user, event){
+  const bodyJson = JSON.stringify({
+    user: user,
+    event: event
+  });
+  console.log("Body : ", bodyJson);
+  return fetch('/api/user/removeEvent',{
+    method: 'PUT',
+    headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: bodyJson
+  })
+      .then(handleErrors)
+      .then(res => res.json());
+}
 
 export function userFollowEvent(user, event){
-  console.log("User : ", user);
-  console.log("Event : ", event);
   return dispatch =>{
     dispatch(followEventBegin());
     return fetchFollowEvent(user, event)
       .then(json =>{
-        dispatch(followEventSuccess(json));
-        return json;
+        if(json.username == 'USER_NULL' || json.username == 'USER_NOT_FOUND' || json.username == 'EVENT_NULL' || json.username == 'EVENT_NOT_FOUND'){
+          dispatch(followEventFailure(json.username));
+          return json.username;
+        }
+        else{
+          dispatch(followEventSuccess(json));
+          dispatch(getUserSuccess(json));
+          return json;
+        } 
       })
       .catch(error =>
         dispatch(followEventFailure(error))
+      );
+  }
+}
+
+export function userUnfollowEvent(user, event){
+  return dispatch =>{
+    dispatch(unfollowEventBegin());
+    return fetchUnfollowEvent(user, event)
+      .then(json =>{
+        if(json.username == 'USER_NULL' || json.username == 'USER_NOT_FOUND' || json.username == 'EVENT_NULL' || json.username == 'EVENT_NOT_FOUND'){
+          dispatch(unfollowEventFailure(json.username));
+          return json.username;
+        }
+        else{
+          dispatch(unfollowEventSuccess(json));
+          dispatch(getUserSuccess(json));
+          return json;
+        } 
+      })
+      .catch(error =>
+        dispatch(unfollowEventFailure(error))
       );
   }
 }
@@ -106,11 +151,11 @@ export function getUser(username) {
     type: GET_USER_BEGIN
   });
   
-  export const getUserSuccess = user => ({
+  /*export const getUserSuccess = user => ({
     type: GET_USER_SUCCESS,
     payload: { user }
   });
-  
+  */
   export const getUserFailure = error => ({
     type: GET_USER_FAILURE,
     payload: { error }

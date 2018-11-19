@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Event from './Event';
 import { fetchEvents } from "../actions/EventActions";
-import { userFollowEvent } from "../actions/UserActions";
+import { userFollowEvent, userUnfollowEvent } from "../actions/UserActions";
 
 const mapDispatchToProps = dispatch => {
     return{
@@ -10,7 +10,10 @@ const mapDispatchToProps = dispatch => {
             dispatch(fetchEvents());
         },
         userFollowEvent: (user, event)=>{
-            dispatch(userFollowEvent(user,event));
+            dispatch(userFollowEvent(user, event));
+        },
+        userUnfollowEvent: (user, event)=>{
+            dispatch(userUnfollowEvent(user, event));
         }
     }
 }
@@ -43,16 +46,31 @@ class Display_Events extends Component {
         console.log("filtered events:", eventsfiltered);
         return(
             <div className="display_events">
-                {eventsfiltered.map(e => (
-                    <Event key={e.id} id={e.id} title={e.title} creator={e.creator} dateBegin={e.date_start} dateEnd={e.date_end} musicStyles={e.musicstyles} locations={e.locations} img={e.img} url={e.url} followMethod={this.followMethod}/>    
-                ))}
+                {eventsfiltered.map(e => {
+                    const isFollowed = this.isFollowed(e.id);
+                    return <Event key={e.id} id={e.id} title={e.title} creator={e.creator} dateBegin={e.date_start} dateEnd={e.date_end} musicStyles={e.musicstyles} locations={e.locations} img={e.img} url={e.url} buttonClickedMethod={this.followMethod} isFollowed={isFollowed}/>    
+                })}
             </div>
         )
     }
 
+    isFollowed(event_id){
+        var ret= false;
+        const eventsFav = this.props.user.eventsFaved;
+        eventsFav.map(event =>{
+            if(event.id == event_id){
+                ret = true;
+            }
+        });
+        return ret;
+    }
+
     followMethod = (event) =>{
         //console.log("event !", event.props);
-        this.props.userFollowEvent(this.props.user, event.props);
+        if(this.isFollowed(event.props.id))
+            this.props.userUnfollowEvent(this.props.user, event.props);
+        else
+            this.props.userFollowEvent(this.props.user, event.props);
     }
 
     modifyEventsListAlongFilter = () =>{
